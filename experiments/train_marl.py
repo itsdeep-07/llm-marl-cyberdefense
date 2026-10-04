@@ -2,7 +2,7 @@ import os
 import sys
 import argparse
 import random
-import yaml
+import json
 import torch
 import numpy as np
 import pandas as pd
@@ -10,6 +10,37 @@ import pandas as pd
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from envs.wrappers import SubnetMARLWrapper
 from agents.mappo import MAPPOAgent
+
+# Default MARL configuration (mirrors configs/marl_config.yaml)
+DEFAULT_MARL_CONFIG = {
+    "algorithm": "MAPPO",
+    "num_agents": 3,
+    "obs_dim_per_agent": 16,
+    "act_dim_per_agent": 5,
+    "global_state_dim": 52,
+    "max_steps_per_episode": 50,
+    "total_episodes": 200,
+    "rollout_horizon": 100,
+    "epochs_per_update": 4,
+    "batch_size": 32,
+    "lr_actor": 0.0003,
+    "lr_critic": 0.001,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "clip_param": 0.2,
+    "entropy_coef": 0.01
+}
+
+
+def load_config(config_path):
+    """Load YAML config if pyyaml is available, otherwise use defaults."""
+    try:
+        import yaml
+        with open(config_path, "r") as f:
+            return yaml.safe_load(f)["marl"]
+    except (ImportError, FileNotFoundError):
+        print("[CONFIG] pyyaml not available or config not found, using built-in defaults.")
+        return DEFAULT_MARL_CONFIG
 
 
 def set_seed(seed):
@@ -32,8 +63,7 @@ def compute_gae(rewards, values, next_value, dones, gamma=0.99, gae_lambda=0.95)
 def train_marl(seed, episodes=100, config_path="configs/marl_config.yaml"):
     set_seed(seed)
     
-    with open(config_path, "r") as f:
-        cfg = yaml.safe_load(f)["marl"]
+    cfg = load_config(config_path)
 
     env = SubnetMARLWrapper(
         num_agents=cfg["num_agents"],

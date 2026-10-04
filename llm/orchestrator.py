@@ -2,11 +2,14 @@ import os
 import json
 import time
 import hashlib
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # dotenv not installed; rely on system env vars
+
 from llm.schema import OrchestratorOutput, SubnetPriority, DetectedConflict, IncidentReport
 from llm.prompts import SYSTEM_ORCHESTRATOR_PROMPT, generate_orchestrator_prompt
-
-load_dotenv()
 
 CACHE_DIR = os.path.join(os.path.dirname(__file__), "..", ".llm_cache")
 os.makedirs(CACHE_DIR, exist_ok=True)

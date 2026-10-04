@@ -65,6 +65,9 @@ COLOR_MAP = {
     "Restored": "#1976D2"      # Blue
 }
 
+# Episode log directory
+EPISODES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results", "episodes")
+
 @st.cache_data
 def load_episode_data(agent, red, seed):
     filename = f"episode_{agent}_{red}_seed_{seed}.json"
@@ -258,7 +261,7 @@ with tab_train:
     st.markdown("Empirical training curves comparing **PPO vs Independent PPO (IPPO) vs MAPPO (Centralized Critic)**.")
     
     # Load Real CSV Data from results/
-    training_csv = "results/mappo_training_seed_42.csv"
+    training_csv = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results", "mappo_training_seed_42.csv")
     if os.path.exists(training_csv):
         df_train = pd.read_csv(training_csv)
         
