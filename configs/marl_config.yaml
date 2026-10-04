@@ -1,0 +1,31 @@
+marl:
+  algorithm: MAPPO
+  num_agents: 3
+  obs_dim_per_agent: 16
+  act_dim_per_agent: 5
+  global_state_dim: 52
+  max_steps_per_episode: 50
+  total_episodes: 200
+  rollout_horizon: 100
+  epochs_per_update: 4
+  batch_size: 32
+  lr_actor: 0.0003
+  lr_critic: 0.001
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_param: 0.2
+  entropy_coef: 0.01
+
+environment:
+  framework: Dec-POMDP
+  subnets:
+    - User_Subnet
+    - Enterprise_Server_Subnet
+    - Operational_Core_Subnet
+
+benchmark:
+  seeds:
+    - 42
+    - 101
+    - 777
+  output_dir: results/marl/
