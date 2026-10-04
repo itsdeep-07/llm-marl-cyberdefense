@@ -27,10 +27,20 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="main-title">🛡️ CybORG LLM-MARL Cyber Defense Platform</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-title">Dec-POMDP Multi-Agent RL Defense with Out-of-Loop LLM Strategic Orchestration</div>', unsafe_allow_html=True)
+# Sidebar Controls
+st.sidebar.header("🕹️ Simulation Controls")
 
-EPISODES_DIR = "results/episodes"
+# Real Gemini API Integration in Sidebar
+st.sidebar.markdown("### 🤖 Google Gemini AI")
+user_gemini_key = st.sidebar.text_input("Gemini API Key", type="password", placeholder="Enter AI Studio Key...", help="Paste your Gemini API key here to enable live cloud calls")
+env_key = os.getenv("GEMINI_API_KEY", "")
+active_api_key = user_gemini_key.strip() if user_gemini_key.strip() else (env_key if env_key != "your_gemini_api_key_here" else "")
+
+if active_api_key:
+    st.sidebar.success("🟢 Live Gemini API Connected")
+else:
+    st.sidebar.info("🟡 Offline / Emulation Mode")
+
 
 # 13 CAGE 2 Host & Subnet Mapping
 SUBNET_MAP = {

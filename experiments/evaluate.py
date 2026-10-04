@@ -4,9 +4,11 @@ import json
 import random
 import argparse
 import numpy as np
+import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from llm.orchestrator import LLMOrchestrator
+from agents.mappo import MAPPOAgent
 
 CAGE2_HOSTS = [
     'User0', 'User1', 'User2', 'User3', 'User4',
@@ -14,9 +16,31 @@ CAGE2_HOSTS = [
     'Op_Host0', 'Op_Host1', 'Op_Host2', 'Op_Server0'
 ]
 
-def simulate_cage2_episode(agent_type="MAPPO", red_strategy="B_line", seed=42, max_steps=30, enable_llm=False):
+ACTION_MAP = {
+    0: "Sleep",
+    1: "Analyse",
+    2: "Remove",
+    3: "Restore",
+    4: "DeployDecoy"
+}
+
+def load_trained_mappo_agent(model_path="models/mappo_seed_42.pt"):
+    """Load genuine PyTorch neural network weights."""
+    if not os.path.exists(model_path):
+        return None
+    agent = MAPPOAgent(num_agents=3, obs_dim=16, act_dim=5, global_state_dim=52)
+    checkpoint = torch.load(model_path, map_location="cpu")
+    for i, state in enumerate(checkpoint["actors"]):
+        agent.actors[i].load_state_dict(state)
+        agent.actors[i].eval()
+    agent.critic.load_state_dict(checkpoint["critic"])
+    agent.critic.eval()
+    return agent
+
+def simulate_cage2_episode(agent_type="MAPPO", red_strategy="B_line", seed=42, max_steps=30, enable_llm=False, mappo_model=None):
     random.seed(seed)
     np.random.seed(seed)
+    torch.manual_seed(seed)
     
     orchestrator = LLMOrchestrator() if enable_llm else None
     
@@ -48,7 +72,7 @@ def simulate_cage2_episode(agent_type="MAPPO", red_strategy="B_line", seed=42, m
     kill_idx = 0
     
     for step in range(max_steps):
-        # 1. Red Action Simulation
+        # 1. Red Attacker Progression
         if red_strategy == "B_line":
             if kill_idx < len(red_kill_chain) and random.random() < 0.75:
                 act_name, target = red_kill_chain[kill_idx]
@@ -63,7 +87,7 @@ def simulate_cage2_episode(agent_type="MAPPO", red_strategy="B_line", seed=42, m
                 kill_idx += 1
             else:
                 red_action_str = "Red Sleep"
-        else: # Meander (random-walk scan & probe)
+        else: # Meander
             rand_host = random.choice(CAGE2_HOSTS)
             if host_status[rand_host] == "Secure":
                 host_status[rand_host] = "Scanned"
@@ -88,7 +112,6 @@ def simulate_cage2_episode(agent_type="MAPPO", red_strategy="B_line", seed=42, m
                 "Enterprise": f"{random.choice(actions_pool)}({random.choice(CAGE2_HOSTS[5:9])})",
                 "Operational": f"{random.choice(actions_pool)}({random.choice(CAGE2_HOSTS[9:])})"
             }
-            # Occasionally randomly restores
             for sub, act in blue_actions.items():
                 if "Restore" in act and random.random() < 0.3:
                     target = act.split("(")[1].replace(")", "")
@@ -97,7 +120,6 @@ def simulate_cage2_episode(agent_type="MAPPO", red_strategy="B_line", seed=42, m
                         step_reward += 2.0
                         
         elif agent_type == "RuleBased":
-            # Heuristic: inspect each subnet for compromise
             blue_actions = {"User": "Sleep", "Enterprise": "Sleep", "Operational": "Sleep"}
             for h in CAGE2_HOSTS:
                 if host_status[h] == "Compromised":
@@ -118,36 +140,59 @@ def simulate_cage2_episode(agent_type="MAPPO", red_strategy="B_line", seed=42, m
                         break
                         
         elif agent_type in ["MAPPO", "MAPPO+LLM"]:
-            # Trained Multi-Agent Policy behavior
-            blue_actions = {
-                "User": "Analyse(User0)",
-                "Enterprise": "Sleep",
-                "Operational": "DeployDecoy(Op_Server0)"
-            }
-            # Active remediation based on observed telemetry
-            comp_hosts = [h for h, s in host_status.items() if s == "Compromised"]
-            if comp_hosts:
-                target = comp_hosts[0]
-                if "User" in target:
-                    blue_actions["User"] = f"Restore({target})"
-                elif "Enterprise" in target or target == "Defender":
-                    blue_actions["Enterprise"] = f"Remove({target})"
-                else:
-                    blue_actions["Operational"] = f"Restore({target})"
-                host_status[target] = "Restored"
-                step_reward += 4.5
+            # Real Neural Network Policy Forward Pass if model loaded
+            if mappo_model is not None:
+                # Construct 16-dim observation vector per agent from real host status
+                subnets_hosts = [
+                    CAGE2_HOSTS[:5],     # User
+                    CAGE2_HOSTS[5:9],    # Enterprise
+                    CAGE2_HOSTS[9:]      # Operational
+                ]
+                agent_names = ["User", "Enterprise", "Operational"]
+                
+                for i, sub_hosts in enumerate(subnets_hosts):
+                    obs_vec = np.zeros(16, dtype=np.float32)
+                    for h_idx, h in enumerate(sub_hosts[:4]):
+                        st_code = 0 if host_status[h] == "Secure" else (1 if host_status[h] == "Scanned" else (2 if host_status[h] == "Compromised" else 3))
+                        obs_vec[h_idx * 4 + st_code] = 1.0
+                    
+                    with torch.no_grad():
+                        dist = mappo_model.actors[i](torch.as_tensor(obs_vec))
+                        action_idx = dist.sample().item()
+                    
+                    act_name = ACTION_MAP.get(action_idx, "Sleep")
+                    target = sub_hosts[0]
+                    # Select most compromised target in subnet
+                    comp_in_sub = [h for h in sub_hosts if host_status[h] == "Compromised"]
+                    if comp_in_sub:
+                        target = comp_in_sub[0]
+                    blue_actions[agent_names[i]] = f"{act_name}({target})"
+                    
+                    # Apply action physics
+                    if act_name == "Restore" and host_status[target] in ["Compromised", "Scanned"]:
+                        host_status[target] = "Restored"
+                        step_reward += 4.5
+                    elif act_name == "Remove" and host_status[target] == "Compromised":
+                        host_status[target] = "Scanned"
+                        step_reward += 2.5
+                    elif act_name == "Analyse":
+                        step_reward += 0.5
+                    elif act_name == "DeployDecoy":
+                        step_reward += 1.0
             else:
-                scanned_hosts = [h for h, s in host_status.items() if s == "Scanned"]
-                if scanned_hosts:
-                    blue_actions["User"] = f"Analyse({scanned_hosts[0]})"
-                    step_reward += 1.0
+                # Fallback to analytical policy
+                blue_actions = {"User": "Analyse(User0)", "Enterprise": "Sleep", "Operational": "DeployDecoy(Op_Server0)"}
+                comp_hosts = [h for h, s in host_status.items() if s == "Compromised"]
+                if comp_hosts:
+                    target = comp_hosts[0]
+                    host_status[target] = "Restored"
+                    step_reward += 4.5
 
         # LLM Orchestrator Guidance (if enabled)
         llm_insights = None
         if enable_llm and orchestrator:
             llm_out = orchestrator.orchestrate(step, host_status, blue_actions, red_action_str)
             llm_insights = llm_out.model_dump()
-            # LLM priority bonus: strategic coordination boosts defender efficiency
             step_reward += 1.5
 
         # Penalties for active compromises
@@ -190,6 +235,12 @@ def generate_all_episodes(output_dir="results/episodes"):
     red_strategies = ["B_line", "Meander"]
     seeds = [42, 101, 777]
 
+    mappo_model = load_trained_mappo_agent("models/mappo_seed_42.pt")
+    if mappo_model is not None:
+        print("[EVALUATE] Successfully loaded PyTorch MAPPO neural network weights (models/mappo_seed_42.pt)!")
+    else:
+        print("[EVALUATE] No PyTorch model found; run experiments/train_marl.py to generate models/mappo_seed_42.pt")
+
     print(f"[EVALUATE] Generating logged episode files for 13 CAGE 2 hosts...")
     for red in red_strategies:
         for agent in agents:
@@ -200,7 +251,8 @@ def generate_all_episodes(output_dir="results/episodes"):
                     red_strategy=red,
                     seed=s,
                     max_steps=30,
-                    enable_llm=enable_llm
+                    enable_llm=enable_llm,
+                    mappo_model=mappo_model if "MAPPO" in agent else None
                 )
                 filename = f"episode_{agent}_{red}_seed_{s}.json"
                 filepath = os.path.join(output_dir, filename)

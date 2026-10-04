@@ -3,18 +3,18 @@
   "red_strategy": "B_line",
   "seed": 101,
   "max_steps": 30,
-  "total_reward": 89.0,
+  "total_reward": 50.0,
   "steps": [
     {
       "step": 0,
       "red_action": "Red DiscoverRemoteSystems -> User Subnet",
       "blue_actions": {
-        "User": "Analyse(User0)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Restore(User0)",
+        "Enterprise": "Remove(Enterprise0)",
+        "Operational": "Sleep(Op_Host0)"
       },
       "host_status": {
-        "User0": "Scanned",
+        "User0": "Restored",
         "User1": "Scanned",
         "User2": "Scanned",
         "User3": "Scanned",
@@ -28,11 +28,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Secure"
       },
-      "reward": 2.5,
-      "cumulative_reward": 2.5,
+      "reward": 6.0,
+      "cumulative_reward": 6.0,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 0,
+      "scanned_count": 4,
+      "restored_count": 1,
       "llm_insights": {
         "step": 0,
         "priorities": [
@@ -62,7 +62,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -70,9 +70,9 @@
       "step": 1,
       "red_action": "Red ExploitRemoteService -> User0",
       "blue_actions": {
-        "User": "Restore(User0)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Remove(User0)",
+        "Enterprise": "Remove(Enterprise0)",
+        "Operational": "Remove(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -89,8 +89,8 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Secure"
       },
-      "reward": 6.0,
-      "cumulative_reward": 8.5,
+      "reward": 1.5,
+      "cumulative_reward": 7.5,
       "compromised_count": 0,
       "scanned_count": 4,
       "restored_count": 1,
@@ -123,7 +123,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -131,9 +131,9 @@
       "step": 2,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Sleep(User0)",
+        "Enterprise": "Restore(Enterprise0)",
+        "Operational": "Remove(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -150,8 +150,8 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Secure"
       },
-      "reward": 2.5,
-      "cumulative_reward": 11.0,
+      "reward": 1.5,
+      "cumulative_reward": 9.0,
       "compromised_count": 0,
       "scanned_count": 4,
       "restored_count": 1,
@@ -184,7 +184,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -192,9 +192,9 @@
       "step": 3,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Restore(User0)",
+        "Enterprise": "DeployDecoy(Enterprise0)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -212,7 +212,7 @@
         "Op_Server0": "Secure"
       },
       "reward": 2.5,
-      "cumulative_reward": 13.5,
+      "cumulative_reward": 11.5,
       "compromised_count": 0,
       "scanned_count": 4,
       "restored_count": 1,
@@ -235,7 +235,16 @@
             "reasoning": "Operational mission servers clean."
           }
         ],
-        "conflicts": [],
+        "conflicts": [
+          {
+            "agents_involved": [
+              "User_Defender",
+              "Enterprise_Defender"
+            ],
+            "conflict_type": "Bandwidth / Resource Contention (Simultaneous Reimaging)",
+            "resolution": "Prioritize Enterprise Server reimaging first; stagger User Workstation recovery."
+          }
+        ],
         "incident_report": {
           "executive_summary": "Step 3: Red attacker actively engaged in Reconnaissance. Telemetry shows 0 compromised hosts across enterprise perimeter.",
           "kill_chain_stage": "Reconnaissance",
@@ -245,7 +254,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -253,9 +262,9 @@
       "step": 4,
       "red_action": "Red PrivilegeEscalate -> User0",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Remove(User0)",
+        "Enterprise": "Sleep(Enterprise0)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -272,8 +281,8 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Secure"
       },
-      "reward": 2.5,
-      "cumulative_reward": 16.0,
+      "reward": 1.5,
+      "cumulative_reward": 13.0,
       "compromised_count": 0,
       "scanned_count": 4,
       "restored_count": 1,
@@ -306,7 +315,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -314,9 +323,9 @@
       "step": 5,
       "red_action": "Red DiscoverRemoteSystems -> Enterprise Subnet",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "DeployDecoy(User0)",
+        "Enterprise": "Analyse(Enterprise0)",
+        "Operational": "Remove(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -333,8 +342,8 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Secure"
       },
-      "reward": 2.5,
-      "cumulative_reward": 18.5,
+      "reward": 3.0,
+      "cumulative_reward": 16.0,
       "compromised_count": 0,
       "scanned_count": 7,
       "restored_count": 1,
@@ -367,7 +376,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -375,9 +384,9 @@
       "step": 6,
       "red_action": "Red ExploitRemoteService -> Enterprise0",
       "blue_actions": {
-        "User": "Analyse(User0)",
-        "Enterprise": "Remove(Enterprise0)",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Restore(User0)",
+        "Enterprise": "Restore(Enterprise0)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -395,7 +404,7 @@
         "Op_Server0": "Secure"
       },
       "reward": 6.0,
-      "cumulative_reward": 24.5,
+      "cumulative_reward": 22.0,
       "compromised_count": 0,
       "scanned_count": 6,
       "restored_count": 2,
@@ -418,7 +427,16 @@
             "reasoning": "Operational mission servers clean."
           }
         ],
-        "conflicts": [],
+        "conflicts": [
+          {
+            "agents_involved": [
+              "User_Defender",
+              "Enterprise_Defender"
+            ],
+            "conflict_type": "Bandwidth / Resource Contention (Simultaneous Reimaging)",
+            "resolution": "Prioritize Enterprise Server reimaging first; stagger User Workstation recovery."
+          }
+        ],
         "incident_report": {
           "executive_summary": "Step 6: Red attacker actively engaged in Reconnaissance. Telemetry shows 0 compromised hosts across enterprise perimeter.",
           "kill_chain_stage": "Reconnaissance",
@@ -428,7 +446,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -436,9 +454,9 @@
       "step": 7,
       "red_action": "Red PrivilegeEscalate -> Enterprise0",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Restore(User0)",
+        "Enterprise": "Sleep(Enterprise0)",
+        "Operational": "Remove(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -455,8 +473,8 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Secure"
       },
-      "reward": 2.5,
-      "cumulative_reward": 27.0,
+      "reward": 1.5,
+      "cumulative_reward": 23.5,
       "compromised_count": 0,
       "scanned_count": 6,
       "restored_count": 2,
@@ -489,7 +507,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -497,9 +515,9 @@
       "step": 8,
       "red_action": "Red DiscoverRemoteSystems -> Enterprise1",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Remove(User0)",
+        "Enterprise": "Remove(Enterprise0)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -516,8 +534,8 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Secure"
       },
-      "reward": 2.5,
-      "cumulative_reward": 29.5,
+      "reward": 1.5,
+      "cumulative_reward": 25.0,
       "compromised_count": 0,
       "scanned_count": 6,
       "restored_count": 2,
@@ -550,7 +568,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -558,9 +576,9 @@
       "step": 9,
       "red_action": "Red ExploitRemoteService -> Enterprise1",
       "blue_actions": {
-        "User": "Analyse(User0)",
-        "Enterprise": "Remove(Enterprise1)",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Remove(User0)",
+        "Enterprise": "Sleep(Enterprise1)",
+        "Operational": "Remove(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -569,7 +587,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Compromised",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -577,11 +595,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Secure"
       },
-      "reward": 6.0,
-      "cumulative_reward": 35.5,
-      "compromised_count": 0,
+      "reward": -0.5,
+      "cumulative_reward": 24.5,
+      "compromised_count": 1,
       "scanned_count": 5,
-      "restored_count": 3,
+      "restored_count": 2,
       "llm_insights": {
         "step": 9,
         "priorities": [
@@ -592,26 +610,26 @@
           },
           {
             "subnet": "Enterprise Subnet",
-            "priority_score": 0.3,
-            "reasoning": "Normal baseline traffic."
+            "priority_score": 0.95,
+            "reasoning": "Pivot junction into Operational zone."
           },
           {
             "subnet": "Operational Subnet",
-            "priority_score": 0.2,
+            "priority_score": 0.8,
             "reasoning": "Operational mission servers clean."
           }
         ],
         "conflicts": [],
         "incident_report": {
-          "executive_summary": "Step 9: Red attacker actively engaged in Reconnaissance. Telemetry shows 0 compromised hosts across enterprise perimeter.",
-          "kill_chain_stage": "Reconnaissance",
+          "executive_summary": "Step 9: Red attacker actively engaged in Lateral Movement. Telemetry shows 1 compromised hosts across enterprise perimeter.",
+          "kill_chain_stage": "Lateral Movement",
           "mitigation_actions": [
             "Isolate Enterprise pivot interfaces",
             "Apply decoy deception on Op_Server0",
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -619,9 +637,9 @@
       "step": 10,
       "red_action": "Red DiscoverRemoteSystems -> Operational Subnet",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Sleep(User0)",
+        "Enterprise": "Analyse(Enterprise1)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -630,7 +648,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Compromised",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -638,11 +656,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Secure"
       },
-      "reward": 2.5,
-      "cumulative_reward": 38.0,
-      "compromised_count": 0,
+      "reward": 0.0,
+      "cumulative_reward": 24.5,
+      "compromised_count": 1,
       "scanned_count": 5,
-      "restored_count": 3,
+      "restored_count": 2,
       "llm_insights": {
         "step": 10,
         "priorities": [
@@ -653,26 +671,26 @@
           },
           {
             "subnet": "Enterprise Subnet",
-            "priority_score": 0.3,
-            "reasoning": "Normal baseline traffic."
+            "priority_score": 0.95,
+            "reasoning": "Pivot junction into Operational zone."
           },
           {
             "subnet": "Operational Subnet",
-            "priority_score": 0.2,
+            "priority_score": 0.8,
             "reasoning": "Operational mission servers clean."
           }
         ],
         "conflicts": [],
         "incident_report": {
-          "executive_summary": "Step 10: Red attacker actively engaged in Reconnaissance. Telemetry shows 0 compromised hosts across enterprise perimeter.",
-          "kill_chain_stage": "Reconnaissance",
+          "executive_summary": "Step 10: Red attacker actively engaged in Lateral Movement. Telemetry shows 1 compromised hosts across enterprise perimeter.",
+          "kill_chain_stage": "Lateral Movement",
           "mitigation_actions": [
             "Isolate Enterprise pivot interfaces",
             "Apply decoy deception on Op_Server0",
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -680,9 +698,9 @@
       "step": 11,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Remove(User0)",
+        "Enterprise": "DeployDecoy(Enterprise1)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -691,7 +709,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Compromised",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -699,11 +717,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Secure"
       },
-      "reward": 2.5,
-      "cumulative_reward": 40.5,
-      "compromised_count": 0,
+      "reward": 0.5,
+      "cumulative_reward": 25.0,
+      "compromised_count": 1,
       "scanned_count": 5,
-      "restored_count": 3,
+      "restored_count": 2,
       "llm_insights": {
         "step": 11,
         "priorities": [
@@ -714,26 +732,26 @@
           },
           {
             "subnet": "Enterprise Subnet",
-            "priority_score": 0.3,
-            "reasoning": "Normal baseline traffic."
+            "priority_score": 0.95,
+            "reasoning": "Pivot junction into Operational zone."
           },
           {
             "subnet": "Operational Subnet",
-            "priority_score": 0.2,
+            "priority_score": 0.8,
             "reasoning": "Operational mission servers clean."
           }
         ],
         "conflicts": [],
         "incident_report": {
-          "executive_summary": "Step 11: Red attacker actively engaged in Reconnaissance. Telemetry shows 0 compromised hosts across enterprise perimeter.",
-          "kill_chain_stage": "Reconnaissance",
+          "executive_summary": "Step 11: Red attacker actively engaged in Lateral Movement. Telemetry shows 1 compromised hosts across enterprise perimeter.",
+          "kill_chain_stage": "Lateral Movement",
           "mitigation_actions": [
             "Isolate Enterprise pivot interfaces",
             "Apply decoy deception on Op_Server0",
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -741,9 +759,9 @@
       "step": 12,
       "red_action": "Red ExploitRemoteService -> Op_Server0",
       "blue_actions": {
-        "User": "Analyse(User0)",
-        "Enterprise": "Sleep",
-        "Operational": "Restore(Op_Server0)"
+        "User": "Restore(User0)",
+        "Enterprise": "Sleep(Enterprise1)",
+        "Operational": "Remove(Op_Server0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -752,19 +770,19 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Compromised",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
         "Op_Host1": "Secure",
         "Op_Host2": "Secure",
-        "Op_Server0": "Restored"
+        "Op_Server0": "Scanned"
       },
-      "reward": 6.0,
-      "cumulative_reward": 46.5,
-      "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "reward": 2.0,
+      "cumulative_reward": 27.0,
+      "compromised_count": 1,
+      "scanned_count": 6,
+      "restored_count": 2,
       "llm_insights": {
         "step": 12,
         "priorities": [
@@ -775,26 +793,26 @@
           },
           {
             "subnet": "Enterprise Subnet",
-            "priority_score": 0.3,
-            "reasoning": "Normal baseline traffic."
+            "priority_score": 0.95,
+            "reasoning": "Pivot junction into Operational zone."
           },
           {
             "subnet": "Operational Subnet",
-            "priority_score": 0.2,
+            "priority_score": 0.8,
             "reasoning": "Operational mission servers clean."
           }
         ],
         "conflicts": [],
         "incident_report": {
-          "executive_summary": "Step 12: Red attacker actively engaged in Reconnaissance. Telemetry shows 0 compromised hosts across enterprise perimeter.",
-          "kill_chain_stage": "Reconnaissance",
+          "executive_summary": "Step 12: Red attacker actively engaged in Lateral Movement. Telemetry shows 1 compromised hosts across enterprise perimeter.",
+          "kill_chain_stage": "Lateral Movement",
           "mitigation_actions": [
             "Isolate Enterprise pivot interfaces",
             "Apply decoy deception on Op_Server0",
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -802,8 +820,8 @@
       "step": 13,
       "red_action": "Red PrivilegeEscalate -> Op_Server0",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
+        "User": "Restore(User0)",
+        "Enterprise": "DeployDecoy(Enterprise1)",
         "Operational": "DeployDecoy(Op_Server0)"
       },
       "host_status": {
@@ -813,19 +831,19 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Compromised",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
         "Op_Host1": "Secure",
         "Op_Host2": "Secure",
-        "Op_Server0": "Restored"
+        "Op_Server0": "Compromised"
       },
-      "reward": 2.5,
-      "cumulative_reward": 49.0,
-      "compromised_count": 0,
+      "reward": -8.5,
+      "cumulative_reward": 18.5,
+      "compromised_count": 2,
       "scanned_count": 5,
-      "restored_count": 4,
+      "restored_count": 2,
       "llm_insights": {
         "step": 13,
         "priorities": [
@@ -836,26 +854,26 @@
           },
           {
             "subnet": "Enterprise Subnet",
-            "priority_score": 0.3,
-            "reasoning": "Normal baseline traffic."
+            "priority_score": 0.95,
+            "reasoning": "Pivot junction into Operational zone."
           },
           {
             "subnet": "Operational Subnet",
-            "priority_score": 0.2,
-            "reasoning": "Operational mission servers clean."
+            "priority_score": 1.0,
+            "reasoning": "Domain Controller at high risk."
           }
         ],
         "conflicts": [],
         "incident_report": {
-          "executive_summary": "Step 13: Red attacker actively engaged in Reconnaissance. Telemetry shows 0 compromised hosts across enterprise perimeter.",
-          "kill_chain_stage": "Reconnaissance",
+          "executive_summary": "Step 13: Red attacker actively engaged in Impact / Domain Takeover. Telemetry shows 2 compromised hosts across enterprise perimeter.",
+          "kill_chain_stage": "Impact / Domain Takeover",
           "mitigation_actions": [
             "Isolate Enterprise pivot interfaces",
             "Apply decoy deception on Op_Server0",
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -863,8 +881,8 @@
       "step": 14,
       "red_action": "Red ImpactDomainController -> Op_Server0",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
+        "User": "DeployDecoy(User0)",
+        "Enterprise": "Remove(Enterprise1)",
         "Operational": "DeployDecoy(Op_Server0)"
       },
       "host_status": {
@@ -874,19 +892,19 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
         "Op_Host1": "Secure",
         "Op_Host2": "Secure",
-        "Op_Server0": "Restored"
+        "Op_Server0": "Compromised"
       },
-      "reward": 2.5,
-      "cumulative_reward": 51.5,
-      "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "reward": -4.0,
+      "cumulative_reward": 14.5,
+      "compromised_count": 1,
+      "scanned_count": 6,
+      "restored_count": 2,
       "llm_insights": {
         "step": 14,
         "priorities": [
@@ -902,21 +920,21 @@
           },
           {
             "subnet": "Operational Subnet",
-            "priority_score": 0.2,
-            "reasoning": "Operational mission servers clean."
+            "priority_score": 1.0,
+            "reasoning": "Domain Controller at high risk."
           }
         ],
         "conflicts": [],
         "incident_report": {
-          "executive_summary": "Step 14: Red attacker actively engaged in Reconnaissance. Telemetry shows 0 compromised hosts across enterprise perimeter.",
-          "kill_chain_stage": "Reconnaissance",
+          "executive_summary": "Step 14: Red attacker actively engaged in Impact / Domain Takeover. Telemetry shows 1 compromised hosts across enterprise perimeter.",
+          "kill_chain_stage": "Impact / Domain Takeover",
           "mitigation_actions": [
             "Isolate Enterprise pivot interfaces",
             "Apply decoy deception on Op_Server0",
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -924,9 +942,9 @@
       "step": 15,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "DeployDecoy(User0)",
+        "Enterprise": "Sleep(Enterprise0)",
+        "Operational": "Restore(Op_Server0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -935,7 +953,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -943,11 +961,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 54.0,
+      "reward": 7.0,
+      "cumulative_reward": 21.5,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 15,
         "priorities": [
@@ -977,7 +995,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -985,9 +1003,9 @@
       "step": 16,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Sleep(User0)",
+        "Enterprise": "Restore(Enterprise0)",
+        "Operational": "Sleep(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -996,7 +1014,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1004,11 +1022,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 56.5,
+      "reward": 1.5,
+      "cumulative_reward": 23.0,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 16,
         "priorities": [
@@ -1038,7 +1056,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1046,9 +1064,9 @@
       "step": 17,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Sleep(User0)",
+        "Enterprise": "Analyse(Enterprise0)",
+        "Operational": "Remove(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1057,7 +1075,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1065,11 +1083,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 59.0,
+      "reward": 2.0,
+      "cumulative_reward": 25.0,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 17,
         "priorities": [
@@ -1099,7 +1117,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1107,9 +1125,9 @@
       "step": 18,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Analyse(User0)",
+        "Enterprise": "Sleep(Enterprise0)",
+        "Operational": "Sleep(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1118,7 +1136,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1126,11 +1144,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 61.5,
+      "reward": 2.0,
+      "cumulative_reward": 27.0,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 18,
         "priorities": [
@@ -1160,7 +1178,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1168,9 +1186,9 @@
       "step": 19,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Restore(User0)",
+        "Enterprise": "Restore(Enterprise0)",
+        "Operational": "Remove(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1179,7 +1197,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1187,11 +1205,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 64.0,
+      "reward": 1.5,
+      "cumulative_reward": 28.5,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 19,
         "priorities": [
@@ -1211,7 +1229,16 @@
             "reasoning": "Operational mission servers clean."
           }
         ],
-        "conflicts": [],
+        "conflicts": [
+          {
+            "agents_involved": [
+              "User_Defender",
+              "Enterprise_Defender"
+            ],
+            "conflict_type": "Bandwidth / Resource Contention (Simultaneous Reimaging)",
+            "resolution": "Prioritize Enterprise Server reimaging first; stagger User Workstation recovery."
+          }
+        ],
         "incident_report": {
           "executive_summary": "Step 19: Red attacker actively engaged in Reconnaissance. Telemetry shows 0 compromised hosts across enterprise perimeter.",
           "kill_chain_stage": "Reconnaissance",
@@ -1221,7 +1248,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1229,9 +1256,9 @@
       "step": 20,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "DeployDecoy(User0)",
+        "Enterprise": "Restore(Enterprise0)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1240,7 +1267,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1249,10 +1276,10 @@
         "Op_Server0": "Restored"
       },
       "reward": 2.5,
-      "cumulative_reward": 66.5,
+      "cumulative_reward": 31.0,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 20,
         "priorities": [
@@ -1272,7 +1299,16 @@
             "reasoning": "Operational mission servers clean."
           }
         ],
-        "conflicts": [],
+        "conflicts": [
+          {
+            "agents_involved": [
+              "User_Defender",
+              "Enterprise_Defender"
+            ],
+            "conflict_type": "Bandwidth / Resource Contention (Simultaneous Reimaging)",
+            "resolution": "Prioritize Enterprise Server reimaging first; stagger User Workstation recovery."
+          }
+        ],
         "incident_report": {
           "executive_summary": "Step 20: Red attacker actively engaged in Reconnaissance. Telemetry shows 0 compromised hosts across enterprise perimeter.",
           "kill_chain_stage": "Reconnaissance",
@@ -1282,7 +1318,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1290,9 +1326,9 @@
       "step": 21,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Sleep(User0)",
+        "Enterprise": "Analyse(Enterprise0)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1301,7 +1337,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1309,11 +1345,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 69.0,
+      "reward": 2.0,
+      "cumulative_reward": 33.0,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 21,
         "priorities": [
@@ -1343,7 +1379,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1351,9 +1387,9 @@
       "step": 22,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Analyse(User0)",
+        "Enterprise": "Analyse(Enterprise0)",
+        "Operational": "DeployDecoy(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1362,7 +1398,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1370,11 +1406,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 71.5,
+      "reward": 3.5,
+      "cumulative_reward": 36.5,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 22,
         "priorities": [
@@ -1404,7 +1440,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1412,9 +1448,9 @@
       "step": 23,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Analyse(User0)",
+        "Enterprise": "Remove(Enterprise0)",
+        "Operational": "Sleep(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1423,7 +1459,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1431,11 +1467,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 74.0,
+      "reward": 2.0,
+      "cumulative_reward": 38.5,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 23,
         "priorities": [
@@ -1465,7 +1501,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1473,9 +1509,9 @@
       "step": 24,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Restore(User0)",
+        "Enterprise": "Analyse(Enterprise0)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1484,7 +1520,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1492,11 +1528,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 76.5,
+      "reward": 2.0,
+      "cumulative_reward": 40.5,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 24,
         "priorities": [
@@ -1516,7 +1552,16 @@
             "reasoning": "Operational mission servers clean."
           }
         ],
-        "conflicts": [],
+        "conflicts": [
+          {
+            "agents_involved": [
+              "User_Defender",
+              "Enterprise_Defender"
+            ],
+            "conflict_type": "Bandwidth / Resource Contention (Simultaneous Reimaging)",
+            "resolution": "Prioritize Enterprise Server reimaging first; stagger User Workstation recovery."
+          }
+        ],
         "incident_report": {
           "executive_summary": "Step 24: Red attacker actively engaged in Reconnaissance. Telemetry shows 0 compromised hosts across enterprise perimeter.",
           "kill_chain_stage": "Reconnaissance",
@@ -1526,7 +1571,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1534,9 +1579,9 @@
       "step": 25,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Remove(User0)",
+        "Enterprise": "Restore(Enterprise0)",
+        "Operational": "Sleep(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1545,7 +1590,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1553,11 +1598,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 79.0,
+      "reward": 1.5,
+      "cumulative_reward": 42.0,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 25,
         "priorities": [
@@ -1587,7 +1632,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1595,9 +1640,9 @@
       "step": 26,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Sleep(User0)",
+        "Enterprise": "Analyse(Enterprise0)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1606,7 +1651,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1614,11 +1659,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 81.5,
+      "reward": 2.0,
+      "cumulative_reward": 44.0,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 26,
         "priorities": [
@@ -1648,7 +1693,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1656,9 +1701,9 @@
       "step": 27,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Analyse(User0)",
+        "Enterprise": "Remove(Enterprise0)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1667,7 +1712,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1675,11 +1720,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 84.0,
+      "reward": 2.0,
+      "cumulative_reward": 46.0,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 27,
         "priorities": [
@@ -1709,7 +1754,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1717,9 +1762,9 @@
       "step": 28,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Restore(User0)",
+        "Enterprise": "DeployDecoy(Enterprise0)",
+        "Operational": "Remove(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1728,7 +1773,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1737,10 +1782,10 @@
         "Op_Server0": "Restored"
       },
       "reward": 2.5,
-      "cumulative_reward": 86.5,
+      "cumulative_reward": 48.5,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 28,
         "priorities": [
@@ -1770,7 +1815,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     },
@@ -1778,9 +1823,9 @@
       "step": 29,
       "red_action": "Red Sleep",
       "blue_actions": {
-        "User": "Analyse(User1)",
-        "Enterprise": "Sleep",
-        "Operational": "DeployDecoy(Op_Server0)"
+        "User": "Sleep(User0)",
+        "Enterprise": "Remove(Enterprise0)",
+        "Operational": "Restore(Op_Host0)"
       },
       "host_status": {
         "User0": "Restored",
@@ -1789,7 +1834,7 @@
         "User3": "Scanned",
         "User4": "Scanned",
         "Enterprise0": "Restored",
-        "Enterprise1": "Restored",
+        "Enterprise1": "Scanned",
         "Enterprise2": "Scanned",
         "Defender": "Secure",
         "Op_Host0": "Secure",
@@ -1797,11 +1842,11 @@
         "Op_Host2": "Secure",
         "Op_Server0": "Restored"
       },
-      "reward": 2.5,
-      "cumulative_reward": 89.0,
+      "reward": 1.5,
+      "cumulative_reward": 50.0,
       "compromised_count": 0,
-      "scanned_count": 5,
-      "restored_count": 4,
+      "scanned_count": 6,
+      "restored_count": 3,
       "llm_insights": {
         "step": 29,
         "priorities": [
@@ -1831,7 +1876,7 @@
             "Execute prioritized host restore for compromised assets"
           ]
         },
-        "latency_ms": 120.0,
+        "latency_ms": 85.0,
         "token_cost_usd": 0.00018
       }
     }
