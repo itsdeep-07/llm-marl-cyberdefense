@@ -1,0 +1,10 @@
+experiment:
+  name: baseline_comparison
+  episodes: 100
+  seed: 42
+  red_agents:
+    - B_line
+    - Meander
+
+results:
+  output_file: results/baselines.csv

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Environment & Keys
+.env
+
+# LLM Cache
+.llm_cache/
+*.json.cache
+
+# TensorBoard & Results
+runs/
+*.csv
+!results/decisions.md
+
+# IDE & Vendor
+vendor/
+.vscode/
+.idea/
+.DS_Store
+
