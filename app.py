@@ -25,10 +25,11 @@ st.markdown("""
     .status-compromised { color: #C62828; font-weight: bold; }
     .status-restored { color: #1565C0; font-weight: bold; }
 </style>
-""", unsafe_allow_dict_prefix=True)
+""", unsafe_allow_html=True)
 
-st.markdown('<div class="main-header">🛡️ CybORG LLM-MARL Cyber Incident Response Playground</div>', unsafe_allow_dict_style=True)
-st.markdown('<div class="sub-header">Automated Multi-Agent Defense & LLM Orchestration Simulation Platform</div>', unsafe_allow_dict_style=True)
+st.markdown('<div class="main-header">🛡️ CybORG LLM-MARL Cyber Incident Response Playground</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">Automated Multi-Agent Defense & LLM Orchestration Simulation Platform</div>', unsafe_allow_html=True)
+
 
 # Sidebar Controls
 st.sidebar.header("🕹️ Simulation Controls")
@@ -121,7 +122,8 @@ with left_col:
         text_color = '#155724' if val == 'Secure' else ('#856404' if val == 'Scanned' else ('#721c24' if val == 'Compromised' else '#004085'))
         return f'background-color: {color}; color: {text_color}; font-weight: bold;'
 
-    st.dataframe(df_hosts.style.applymap(color_status, subset=['status']), use_container_width=True)
+    st.dataframe(df_hosts, use_container_width=True)
+
 
     # Topology Graph Visualizer
     fig_topo = go.Figure()
