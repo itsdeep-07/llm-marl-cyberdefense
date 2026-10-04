@@ -1,112 +1,103 @@
-import os
+"""Evaluate real CC4 baseline teams and save reproducible summary tables."""
+
+from __future__ import annotations
+
 import argparse
-import inspect
+import os
 import random
+import sys
+from typing import Callable
+
 import numpy as np
 import pandas as pd
 
-import CybORG
-from CybORG import CybORG as CybORGEnv
-from CybORG.Agents import B_lineAgent, SleepAgent as CybORGSleepAgent, RedMeanderAgent
-from CybORG.Agents.Wrappers import ChallengeWrapper
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-def set_seed(seed: int):
-    random.seed(seed)
-    np.random.seed(seed)
+from agents.baselines import RandomPolicy, RuleBasedPolicy, SleepPolicy
+from envs.cc4_env import make_env
 
-def get_env(red_agent_class):
-    cyborg_path = inspect.getfile(CybORG)
-    scenario_path = os.path.join(os.path.dirname(cyborg_path), 'Shared', 'Scenarios', 'Scenario2.yaml')
-    cyborg_env = CybORGEnv(scenario_path, 'sim', agents={'Red': red_agent_class})
-    env = ChallengeWrapper(env=cyborg_env, agent_name='Blue')
-    return env
 
-class RandomBlueAgent:
-    def get_action(self, obs, action_space):
-        return action_space.sample() if hasattr(action_space, 'sample') else random.randint(0, action_space - 1)
+PolicyFactory = Callable[[int], object]
 
-class SleepBlueAgent:
-    def get_action(self, obs, action_space):
-        return 0  # Action 0 is Sleep / Do-Nothing in ChallengeWrapper
 
-class RuleBasedBlueAgent:
-    def get_action(self, obs, action_space):
-        # Heuristic defender rule: restore if suspicious, else sleep/monitor
-        if hasattr(action_space, 'sample'):
-            # ChallengeWrapper integer action space
-            num_actions = action_space.n if hasattr(action_space, 'n') else 1
-            # Action selection heuristic: prioritize Restore (typically action idx 1 or 2)
-            return 1 if num_actions > 1 else 0
-        return 0
+def _run_episode(seed: int, policy: object, steps: int) -> float:
+    env = make_env(seed=seed, steps=steps)
+    observation, info = env.reset(seed=seed)
+    policy.reset()
+    total_reward = 0.0
 
-def run_evaluation(agent_name, agent_obj, red_agent_class, num_episodes=100):
-    env = get_env(red_agent_class)
-    episode_rewards = []
+    while True:
+        actions = {
+            agent: policy.action(
+                agent,
+                observation[agent],
+                env.action_labels(agent),
+                info[agent]["action_mask"],
+            )
+            for agent in env.agents
+        }
+        observation, rewards, terminated, truncated, info = env.step(actions)
+        total_reward += float(sum(rewards.values()))
+        if truncated.get("__all__", False) or any(terminated.values()):
+            return total_reward
 
-    for ep in range(num_episodes):
-        obs = env.reset()
-        if isinstance(obs, tuple):
-            obs = obs[0]
-        done = False
-        total_reward = 0.0
 
-        while not done:
-            action = agent_obj.get_action(obs, env.action_space)
-            step_res = env.step(action)
-            if len(step_res) == 5:
-                obs, reward, terminated, truncated, info = step_res
-                done = terminated or truncated
-            else:
-                obs, reward, done, info = step_res
-            total_reward += reward
+def evaluate_policy(
+    policy_factory: PolicyFactory,
+    seed: int,
+    episodes: int,
+    steps: int,
+) -> tuple[float, float]:
+    returns = [
+        _run_episode(seed=seed + episode, policy=policy_factory(seed + episode), steps=steps)
+        for episode in range(episodes)
+    ]
+    return float(np.mean(returns)), float(np.std(returns))
 
-        episode_rewards.append(total_reward)
 
-    mean_reward = float(np.mean(episode_rewards))
-    std_reward = float(np.std(episode_rewards))
-    return mean_reward, std_reward
-
-def main():
-    parser = argparse.ArgumentParser(description="Run CybORG CAGE 2 Baseline Evaluations")
-    parser.add_argument("--seed", type=int, default=42, help="Random seed")
-    parser.add_argument("--episodes", type=int, default=100, help="Number of episodes")
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Run real CC4 baseline evaluations")
+    parser.add_argument("--seed", type=int, default=None)
+    parser.add_argument("--episodes", type=int, default=100)
+    parser.add_argument("--steps", type=int, default=100)
+    parser.add_argument("--output", default="results/tables/baselines.csv")
     args = parser.parse_args()
 
-    set_seed(args.seed)
-    os.makedirs("results", exist_ok=True)
-
-    blue_agents = {
-        "Random": RandomBlueAgent(),
-        "Sleep (Do-Nothing)": SleepBlueAgent(),
-        "Rule-Based": RuleBasedBlueAgent()
+    seeds = [args.seed] if args.seed is not None else [42, 101, 777]
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    policy_factories: dict[str, PolicyFactory] = {
+        "Sleep": lambda seed: SleepPolicy(),
+        "Random": lambda seed: RandomPolicy(seed),
+        "RuleBased": lambda seed: RuleBasedPolicy(),
     }
+    rows = []
+    for seed in seeds:
+        for name, factory in policy_factories.items():
+            mean_reward, std_reward = evaluate_policy(
+                factory, seed=seed, episodes=args.episodes, steps=args.steps
+            )
+            rows.append(
+                {
+                    "seed": seed,
+                    "agent": name,
+                    "red": "FiniteStateRedAgent",
+                    "episodes": args.episodes,
+                    "steps": args.steps,
+                    "mean_reward": mean_reward,
+                    "std_reward": std_reward,
+                }
+            )
+            print(
+                f"seed={seed} agent={name} episodes={args.episodes} "
+                f"mean_reward={mean_reward:.3f} std_reward={std_reward:.3f}"
+            )
 
-    red_agents = {
-        "B_line": B_lineAgent,
-        "Meander": RedMeanderAgent
-    }
+    output_path = os.path.abspath(args.output)
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    pd.DataFrame(rows).to_csv(output_path, index=False)
+    print(f"saved={output_path}")
 
-    results = []
-
-    print(f"=== Starting CybORG Baseline Experiments (Seed: {args.seed}, Episodes: {args.episodes}) ===")
-    for red_name, red_class in red_agents.items():
-        for blue_name, blue_obj in blue_agents.items():
-            print(f"Running Blue: {blue_name} vs Red: {red_name}...")
-            mean_r, std_r = run_evaluation(blue_name, blue_obj, red_class, num_episodes=args.episodes)
-            print(f" -> Mean Reward: {mean_r:.2f} +/- {std_r:.2f}")
-            results.append({
-                "Seed": args.seed,
-                "Blue_Agent": blue_name,
-                "Red_Agent": red_name,
-                "Mean_Reward": mean_r,
-                "Std_Reward": std_r,
-                "Episodes": args.episodes
-            })
-
-    df = pd.DataFrame(results)
-    output_path = os.path.join("results", "baselines.csv")
-    df.to_csv(output_path, index=False)
-    print(f"\nBaseline results successfully saved to {output_path}")
 
 if __name__ == "__main__":
     main()

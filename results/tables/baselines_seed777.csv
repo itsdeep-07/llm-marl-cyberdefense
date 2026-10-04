@@ -1,0 +1,4 @@
+seed,agent,red,episodes,steps,mean_reward,std_reward
+777,Sleep,FiniteStateRedAgent,30,100,-548.1666666666666,404.66546540184135
+777,Random,FiniteStateRedAgent,30,100,-2366.8333333333335,519.3497269556314
+777,RuleBased,FiniteStateRedAgent,30,100,-2418.6666666666665,481.73978683748163

@@ -1,54 +1,103 @@
+"""Baseline policies for the real CAGE Challenge 4 wrapper."""
+
+from __future__ import annotations
+
 import random
+from typing import Iterable, Sequence
+
 import numpy as np
 
-class RandomAgent:
-    """Agent that selects actions uniformly at random from valid action space."""
-    def __init__(self, action_space=None):
-        self.action_space = action_space
 
-    def get_action(self, observation, action_space=None):
-        space = action_space or self.action_space
-        if space is None:
-            return 0
-        if hasattr(space, 'sample'):
-            return space.sample()
-        if isinstance(space, list):
-            return random.choice(space)
-        if isinstance(space, int):
-            return random.randint(0, space - 1)
-        return 0
+def _valid_indices(mask: Sequence[bool]) -> list[int]:
+    return [index for index, valid in enumerate(mask) if valid]
 
 
-class SleepAgent:
-    """Agent that always performs a 'Do-Nothing' / Sleep action (index 0)."""
-    def __init__(self, sleep_action_index=0):
-        self.sleep_action_index = sleep_action_index
+def _first_action(
+    labels: Sequence[str],
+    mask: Sequence[bool],
+    action_names: Iterable[str],
+) -> int | None:
+    valid = set(_valid_indices(mask))
+    for name in action_names:
+        for index, label in enumerate(labels):
+            if index in valid and label.split(maxsplit=1)[0] == name:
+                return index
+    return None
 
-    def get_action(self, observation, action_space=None):
-        return self.sleep_action_index
+
+class SleepPolicy:
+    """Select the real Sleep action from each agent's dynamic action space."""
+
+    def reset(self) -> None:
+        pass
+
+    def action(
+        self,
+        agent: str,
+        observation: np.ndarray,
+        labels: Sequence[str],
+        mask: Sequence[bool],
+    ) -> int:
+        del agent, observation
+        sleep = _first_action(labels, mask, ("Sleep",))
+        if sleep is not None:
+            return sleep
+        valid = _valid_indices(mask)
+        if not valid:
+            raise RuntimeError("CC4 returned an action space with no valid action")
+        return valid[0]
 
 
-class RuleBasedDefenderAgent:
-    """
-    Simple heuristic rule-based defender agent.
-    Monitors host observations for anomaly/compromise signals and prioritizes:
-    1. Restore compromised hosts (if detected)
-    2. Remove malicious processes / Analyse suspicious activity
-    3. Sleep / Do-nothing if environment state appears clean
-    """
-    def __init__(self, action_space=None):
-        self.action_space = action_space
+class RandomPolicy(SleepPolicy):
+    """Sample uniformly from the currently valid actions."""
 
-    def get_action(self, observation, action_space=None):
-        # Heuristic rules based on observation flags if formatted as array/dict
-        if isinstance(observation, dict):
-            # Check for compromised hosts in observation dictionary
-            for host, info in observation.items():
-                if isinstance(info, dict) and info.get('Compromised') == 'User':
-                    # Priority 1: Restore or analyze
-                    return 1
-        # Fallback to default action or random action if space is known
-        space = action_space or self.action_space
-        if hasattr(space, 'sample'):
-            return 0
-        return 0
+    def __init__(self, seed: int) -> None:
+        self._random = random.Random(seed)
+
+    def action(
+        self,
+        agent: str,
+        observation: np.ndarray,
+        labels: Sequence[str],
+        mask: Sequence[bool],
+    ) -> int:
+        del agent, observation, labels
+        valid = _valid_indices(mask)
+        if not valid:
+            raise RuntimeError("CC4 returned an action space with no valid action")
+        return self._random.choice(valid)
+
+
+class RuleBasedPolicy(SleepPolicy):
+    """Progress through Analyse, Remove, and Restore after a process alert."""
+
+    _MALICIOUS_PROCESS_START = 3 + (2 * 18)
+    _MALICIOUS_PROCESS_SIZE = 2 * 16
+
+    def __init__(self) -> None:
+        self._stages: dict[str, int] = {}
+
+    def reset(self) -> None:
+        self._stages.clear()
+
+    def action(
+        self,
+        agent: str,
+        observation: np.ndarray,
+        labels: Sequence[str],
+        mask: Sequence[bool],
+    ) -> int:
+        process_end = self._MALICIOUS_PROCESS_START + self._MALICIOUS_PROCESS_SIZE
+        alert = bool(np.any(observation[self._MALICIOUS_PROCESS_START:process_end]))
+        stage = self._stages.get(agent, 0)
+        if alert or stage:
+            action = _first_action(
+                labels,
+                mask,
+                ("Analyse", "Remove", "Restore")[stage:],
+            )
+            if action is not None:
+                self._stages[agent] = min(stage + 1, 2)
+                return action
+        self._stages.pop(agent, None)
+        return super().action(agent, observation, labels, mask)
