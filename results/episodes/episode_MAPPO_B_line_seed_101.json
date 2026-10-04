@@ -1,0 +1,909 @@
+{
+  "agent": "MAPPO",
+  "red_strategy": "B_line",
+  "seed": 101,
+  "max_steps": 30,
+  "total_reward": 44.0,
+  "steps": [
+    {
+      "step": 0,
+      "red_action": "Red DiscoverRemoteSystems -> User Subnet",
+      "blue_actions": {
+        "User": "Analyse(User0)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Scanned",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Secure",
+        "Enterprise1": "Secure",
+        "Enterprise2": "Secure",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 1.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 0,
+      "llm_insights": null
+    },
+    {
+      "step": 1,
+      "red_action": "Red ExploitRemoteService -> User0",
+      "blue_actions": {
+        "User": "Restore(User0)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Secure",
+        "Enterprise1": "Secure",
+        "Enterprise2": "Secure",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 4.5,
+      "cumulative_reward": 5.5,
+      "compromised_count": 0,
+      "scanned_count": 4,
+      "restored_count": 1,
+      "llm_insights": null
+    },
+    {
+      "step": 2,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Secure",
+        "Enterprise1": "Secure",
+        "Enterprise2": "Secure",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 6.5,
+      "compromised_count": 0,
+      "scanned_count": 4,
+      "restored_count": 1,
+      "llm_insights": null
+    },
+    {
+      "step": 3,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Secure",
+        "Enterprise1": "Secure",
+        "Enterprise2": "Secure",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 7.5,
+      "compromised_count": 0,
+      "scanned_count": 4,
+      "restored_count": 1,
+      "llm_insights": null
+    },
+    {
+      "step": 4,
+      "red_action": "Red PrivilegeEscalate -> User0",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Secure",
+        "Enterprise1": "Secure",
+        "Enterprise2": "Secure",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 8.5,
+      "compromised_count": 0,
+      "scanned_count": 4,
+      "restored_count": 1,
+      "llm_insights": null
+    },
+    {
+      "step": 5,
+      "red_action": "Red DiscoverRemoteSystems -> Enterprise Subnet",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Scanned",
+        "Enterprise1": "Scanned",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 9.5,
+      "compromised_count": 0,
+      "scanned_count": 7,
+      "restored_count": 1,
+      "llm_insights": null
+    },
+    {
+      "step": 6,
+      "red_action": "Red ExploitRemoteService -> Enterprise0",
+      "blue_actions": {
+        "User": "Analyse(User0)",
+        "Enterprise": "Remove(Enterprise0)",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Scanned",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 4.5,
+      "cumulative_reward": 14.0,
+      "compromised_count": 0,
+      "scanned_count": 6,
+      "restored_count": 2,
+      "llm_insights": null
+    },
+    {
+      "step": 7,
+      "red_action": "Red PrivilegeEscalate -> Enterprise0",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Scanned",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 15.0,
+      "compromised_count": 0,
+      "scanned_count": 6,
+      "restored_count": 2,
+      "llm_insights": null
+    },
+    {
+      "step": 8,
+      "red_action": "Red DiscoverRemoteSystems -> Enterprise1",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Scanned",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 16.0,
+      "compromised_count": 0,
+      "scanned_count": 6,
+      "restored_count": 2,
+      "llm_insights": null
+    },
+    {
+      "step": 9,
+      "red_action": "Red ExploitRemoteService -> Enterprise1",
+      "blue_actions": {
+        "User": "Analyse(User0)",
+        "Enterprise": "Remove(Enterprise1)",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 4.5,
+      "cumulative_reward": 20.5,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 3,
+      "llm_insights": null
+    },
+    {
+      "step": 10,
+      "red_action": "Red DiscoverRemoteSystems -> Operational Subnet",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 21.5,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 3,
+      "llm_insights": null
+    },
+    {
+      "step": 11,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Secure"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 22.5,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 3,
+      "llm_insights": null
+    },
+    {
+      "step": 12,
+      "red_action": "Red ExploitRemoteService -> Op_Server0",
+      "blue_actions": {
+        "User": "Analyse(User0)",
+        "Enterprise": "Sleep",
+        "Operational": "Restore(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 4.5,
+      "cumulative_reward": 27.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 13,
+      "red_action": "Red PrivilegeEscalate -> Op_Server0",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 28.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 14,
+      "red_action": "Red ImpactDomainController -> Op_Server0",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 29.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 15,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 30.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 16,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 31.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 17,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 32.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 18,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 33.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 19,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 34.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 20,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 35.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 21,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 36.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 22,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 37.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 23,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 38.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 24,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 39.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 25,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 40.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 26,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 41.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 27,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 42.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 28,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 43.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    },
+    {
+      "step": 29,
+      "red_action": "Red Sleep",
+      "blue_actions": {
+        "User": "Analyse(User1)",
+        "Enterprise": "Sleep",
+        "Operational": "DeployDecoy(Op_Server0)"
+      },
+      "host_status": {
+        "User0": "Restored",
+        "User1": "Scanned",
+        "User2": "Scanned",
+        "User3": "Scanned",
+        "User4": "Scanned",
+        "Enterprise0": "Restored",
+        "Enterprise1": "Restored",
+        "Enterprise2": "Scanned",
+        "Defender": "Secure",
+        "Op_Host0": "Secure",
+        "Op_Host1": "Secure",
+        "Op_Host2": "Secure",
+        "Op_Server0": "Restored"
+      },
+      "reward": 1.0,
+      "cumulative_reward": 44.0,
+      "compromised_count": 0,
+      "scanned_count": 5,
+      "restored_count": 4,
+      "llm_insights": null
+    }
+  ]
+}
