@@ -47,6 +47,8 @@ Acceptance: five real Sleep-team episodes complete successfully.
 - The rule policy should prioritize real CC4 actions such as Analyse, Remove,
   and Restore when observed alerts justify them.
 - Run 100 episodes per baseline over three seeds.
+- Aggregate team reward as the mean of the per-agent CybORG rewards at each
+  step, matching the CC4 evaluator, and include an across-seed summary row.
 - Save mean and standard deviation to `results/tables/baselines.csv`.
 - Re-running with the same seed must reproduce the same result.
 

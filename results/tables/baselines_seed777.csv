@@ -1,4 +1,4 @@
-seed,agent,red,episodes,steps,mean_reward,std_reward
-777,Sleep,FiniteStateRedAgent,30,100,-548.1666666666666,404.66546540184135
-777,Random,FiniteStateRedAgent,30,100,-2366.8333333333335,519.3497269556314
-777,RuleBased,FiniteStateRedAgent,30,100,-2418.6666666666665,481.73978683748163
+row_type,seed,agent,red,episodes,steps,mean_reward,std_reward
+seed,777,Sleep,FiniteStateRedAgent,30,100,-109.63333333333334,80.93309308036827
+seed,777,Random,FiniteStateRedAgent,30,100,-511.26666666666665,108.8931994611642
+seed,777,RuleBased,FiniteStateRedAgent,30,100,-109.63333333333334,80.93309308036827

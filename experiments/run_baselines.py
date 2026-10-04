@@ -33,11 +33,13 @@ def _run_episode(seed: int, policy: object, steps: int) -> float:
                 observation[agent],
                 env.action_labels(agent),
                 info[agent]["action_mask"],
+                env.hosts(agent),
+                env.subnets(agent),
             )
             for agent in env.agents
         }
         observation, rewards, terminated, truncated, info = env.step(actions)
-        total_reward += float(sum(rewards.values()))
+        total_reward += float(np.mean(list(rewards.values())))
         if truncated.get("__all__", False) or any(terminated.values()):
             return total_reward
 
@@ -79,6 +81,7 @@ def main() -> None:
             )
             rows.append(
                 {
+                    "row_type": "seed",
                     "seed": seed,
                     "agent": name,
                     "red": "FiniteStateRedAgent",
@@ -93,6 +96,18 @@ def main() -> None:
                 f"mean_reward={mean_reward:.3f} std_reward={std_reward:.3f}"
             )
 
+    details = pd.DataFrame(rows)
+    if args.seed is None:
+        summaries = (
+            details.groupby(["agent", "red", "episodes", "steps"], as_index=False)
+            .agg(
+                mean_reward=("mean_reward", "mean"),
+                std_reward=("mean_reward", "std"),
+            )
+            .assign(row_type="summary", seed="all")
+        )
+        summaries = summaries[details.columns]
+        rows = pd.concat([details, summaries], ignore_index=True)
     output_path = os.path.abspath(args.output)
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     pd.DataFrame(rows).to_csv(output_path, index=False)
