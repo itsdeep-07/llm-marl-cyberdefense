@@ -1,3 +1,5 @@
+# DO NOT USE FOR RESULTS. Hand-written toy simulator.
+
 import os
 import sys
 import json

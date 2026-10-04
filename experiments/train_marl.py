@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from envs.wrappers import SubnetMARLWrapper
+from envs.toy_env import ToySubnetEnv
 from agents.mappo import MAPPOAgent
 
 # Default MARL configuration (mirrors configs/marl_config.yaml)
@@ -65,7 +65,7 @@ def train_marl(seed, episodes=100, config_path="configs/marl_config.yaml"):
     
     cfg = load_config(config_path)
 
-    env = SubnetMARLWrapper(
+    env = ToySubnetEnv(
         num_agents=cfg["num_agents"],
         obs_dim_per_agent=cfg["obs_dim_per_agent"],
         act_dim_per_agent=cfg["act_dim_per_agent"],

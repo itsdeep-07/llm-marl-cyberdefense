@@ -155,7 +155,7 @@ with tab_live:
     ep_data = load_episode_data(sel_agent, sel_red, sel_seed)
     
     if ep_data is None:
-        st.error("Episode log file not found in results/episodes/! Run experiments/evaluate.py to generate logs.")
+        st.error("No real rollout log found in results/episodes/. Generate a CC4 rollout before opening this tab.")
     else:
         steps = ep_data["steps"]
         total_steps = len(steps)

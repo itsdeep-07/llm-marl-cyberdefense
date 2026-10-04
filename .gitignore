@@ -18,12 +18,12 @@ ENV/
 
 # TensorBoard & Results
 runs/
-*.csv
-!results/decisions.md
+results/raw/
+results/**/*.log
 
 # IDE & Vendor
+third_party/
 vendor/
 .vscode/
 .idea/
 .DS_Store
-

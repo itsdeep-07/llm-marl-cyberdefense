@@ -1,8 +1,11 @@
 import numpy as np
 
-class SubnetMARLWrapper:
+class ToySubnetEnv:
     """
-    Multi-Agent Dec-POMDP Environment Wrapper.
+    Sanity-test environment for MAPPO code. Not CybORG.
+
+    Results from this environment are never reported as cyber-defense
+    performance.
     
     Partitions the network into N=3 distinct administrative subnets:
       - Agent 0: User Workstation Subnet (Hosts 0 - 3)
