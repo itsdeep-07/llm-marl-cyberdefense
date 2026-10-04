@@ -1,13 +1,18 @@
-# Core RL & Gym
+# CC4 runtime (clone third_party/cage-challenge-4 and run:
+# pip install -e third_party/cage-challenge-4)
 gym==0.26.2
-gymnasium==0.29.1
-stable-baselines3==2.3.2
-torch>=2.0.0
-numpy>=1.24.0,<2.0.0
+gymnasium==0.28.1
+stable-baselines3==2.2.1
+sb3-contrib==2.2.1
+torch==2.2.0
+numpy==1.26.4
+pettingzoo==1.24.3
+ray[rllib]
+lz4==4.3.3
+networkx==3.2.1
+prettytable==3.9.0
+pygame==2.5.2
 pandas>=2.0.0
-
-# CybORG Environment (Installed directly from GitHub repository)
-# git+https://github.com/cage-challenge/CybORG.git@main#egg=CybORG
 
 # LLM Orchestrator
 google-genai>=0.1.0
@@ -22,4 +27,3 @@ seaborn>=0.12.0
 tqdm>=4.65.0
 streamlit>=1.30.0
 plotly>=5.18.0
-
