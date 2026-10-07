@@ -8,3 +8,4 @@
 | 2026-10-04 | Use SB3 MaskablePPO for IPPO | CC4 provides a verified `TrainingSB3.py` action-masking path; it is more reliable than Ray/RLlib on native Windows. |
 | 2026-10-04 | Validate baselines at 30 episodes and 100 steps during development | This reduces iteration time while preserving three-seed comparisons; final 500-step evaluation is deferred until the development results are reviewed. |
 | 2026-10-04 | MAPPO selected over Independent DQN & QMIX for Phase 2 | Grounded in Nguyen & Reddi (IEEE TNNLS 2023) survey: CTDE solves multi-agent non-stationarity while decentralized actors respect partial observability in Dec-POMDP. |
+| 2026-10-07 | Host state logged as red_session / no_red_session from get_agent_state | Uses documented CC4 debugging calls; it does not distinguish user from root privilege. |
