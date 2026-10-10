@@ -1,0 +1,11 @@
+{
+  "algo": "mappo",
+  "seed": 777,
+  "total_steps": 20000,
+  "steps": 100,
+  "episodes_per_update": 4,
+  "hyper": {
+    "reward_scale": 0.1
+  },
+  "eval_seed_base": 9000000
+}
