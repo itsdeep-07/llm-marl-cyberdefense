@@ -47,9 +47,13 @@ def evaluate_policy(
     seed: int,
     episodes: int,
     steps: int,
+    seed_base: int | None = None,
 ) -> tuple[float, float]:
+    # seed_base selects the environment seeds (e.g. the held-out RL evaluation
+    # seeds); policy randomness keeps using seed + episode as before.
+    env_base = seed if seed_base is None else seed_base
     returns = [
-        _run_episode(seed=seed + episode, policy=policy_factory(seed + episode), steps=steps)
+        _run_episode(seed=env_base + episode, policy=policy_factory(seed + episode), steps=steps)
         for episode in range(episodes)
     ]
     return float(np.mean(returns)), float(np.std(returns))
@@ -60,6 +64,8 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=None)
     parser.add_argument("--episodes", type=int, default=100)
     parser.add_argument("--steps", type=int, default=100)
+    parser.add_argument("--seed-base", type=int, default=None,
+                        help="first environment seed; use the RL held-out base (9000000)")
     parser.add_argument("--output", default="results/tables/baselines.csv")
     args = parser.parse_args()
 
@@ -75,7 +81,8 @@ def main() -> None:
     for seed in seeds:
         for name, factory in policy_factories.items():
             mean_reward, std_reward = evaluate_policy(
-                factory, seed=seed, episodes=args.episodes, steps=args.steps
+                factory, seed=seed, episodes=args.episodes, steps=args.steps,
+                seed_base=args.seed_base,
             )
             rows.append(
                 {
@@ -86,6 +93,7 @@ def main() -> None:
                     "steps": args.steps,
                     "mean_reward": mean_reward,
                     "std_reward": std_reward,
+                    "eval_seed_base": seed if args.seed_base is None else args.seed_base,
                 }
             )
             print(

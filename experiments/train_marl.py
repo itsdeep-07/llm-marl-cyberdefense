@@ -9,7 +9,7 @@ import pandas as pd
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from envs.toy_env import ToySubnetEnv
-from agents.mappo import MAPPOAgent
+from agents.mappo_toy import MAPPOAgent  # toy-only; real MAPPO is agents/mappo.py
 
 # Default MARL configuration (mirrors configs/marl_config.yaml)
 DEFAULT_MARL_CONFIG = {
