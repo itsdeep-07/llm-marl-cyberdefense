@@ -28,5 +28,6 @@ vendor/
 .vscode/
 .idea/
 .DS_Store
+docs/LLM_MARL_CyberDefense_Viva_Notes.md
 results/checkpoints/
 results/checkpoints/
