@@ -28,3 +28,5 @@ vendor/
 .vscode/
 .idea/
 .DS_Store
+results/checkpoints/
+results/checkpoints/

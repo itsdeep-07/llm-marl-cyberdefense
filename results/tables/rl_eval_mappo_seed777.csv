@@ -1,0 +1,2 @@
+seed,agent,red,episodes,steps,mean_reward,std_reward,eval_seed_base,train_env_steps,train_wall_time_s,eval_wall_time_s
+777,MAPPO,FiniteStateRedAgent,30,100,-460.1666666666667,365.07872058259187,9000000,19800,273.8081418749989,41.01057799999944
