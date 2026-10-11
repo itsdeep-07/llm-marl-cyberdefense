@@ -1,0 +1,28 @@
+# LLM layer settings (Batch 5). This file is the single source of truth for the
+# model name, prompt version and prices. There are no defaults in the code:
+# a missing key here is an error.
+
+model: gemini-3.5-flash-lite
+prompt_version: cc4-v1
+
+# Optional generation settings. null = use the model's default.
+temperature: null
+thinking_level: low          # chosen after the live test: ~7 s and ~500 output tokens per call
+max_output_tokens: null
+
+# Retries for temporary API errors only (HTTP 429, 500, 503, 504). Other errors
+# are never retried. Total attempts = 1 + max_retries. Waits grow as
+# retry_base_seconds * 2^(attempt-1): 5 s, 10 s, 20 s, ...
+max_retries: 3
+retry_base_seconds: 5
+
+# Prices in USD per 1,000,000 tokens (paid-tier list prices; output includes thinking
+# tokens). On the free tier nothing is actually charged, so cost_usd in the results is the
+# list-price EQUIVALENT of the tokens used.
+# Source: https://ai.google.dev/gemini-api/docs/pricing (checked 2026-10-11).
+# The page lists no end date for this model, so valid_through is a review date: the
+# orchestrator refuses to run after it so the prices get re-checked.
+prices:
+  input_usd_per_1m: 0.30
+  output_usd_per_1m: 2.50
+  valid_through: "2027-03-31"
