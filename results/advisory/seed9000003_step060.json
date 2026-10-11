@@ -1,0 +1,185 @@
+{
+  "summary": {
+    "step": 60,
+    "mission_phase": "MissionA",
+    "total_alerting_hosts": 2,
+    "agents": [
+      {
+        "agent": "blue_agent_0",
+        "zones": [
+          {
+            "zone": "restricted_zone_a_subnet",
+            "hosts_present": 15,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": [
+          "[DeployDecoy restricted_zone_a_subnet_user_host_7]",
+          "[Sleep]",
+          "[DeployDecoy restricted_zone_a_subnet_user_host_7]"
+        ]
+      },
+      {
+        "agent": "blue_agent_1",
+        "zones": [
+          {
+            "zone": "operational_zone_a_subnet",
+            "hosts_present": 13,
+            "hosts_alerting": 2,
+            "alert_hosts": [
+              "operational_zone_a_subnet_server_host_3:process+connection",
+              "operational_zone_a_subnet_user_host_2:connection"
+            ],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": [
+          "[DeployDecoy operational_zone_a_subnet_user_host_7]",
+          "[Sleep]",
+          "[DeployDecoy operational_zone_a_subnet_user_host_7]"
+        ]
+      },
+      {
+        "agent": "blue_agent_2",
+        "zones": [
+          {
+            "zone": "restricted_zone_b_subnet",
+            "hosts_present": 13,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": [
+          "[DeployDecoy restricted_zone_b_subnet_user_host_7]",
+          "[Sleep]",
+          "[DeployDecoy restricted_zone_b_subnet_user_host_7]"
+        ]
+      },
+      {
+        "agent": "blue_agent_3",
+        "zones": [
+          {
+            "zone": "operational_zone_b_subnet",
+            "hosts_present": 10,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": [
+          "[DeployDecoy operational_zone_b_subnet_user_host_7]",
+          "[Sleep]",
+          "[DeployDecoy operational_zone_b_subnet_user_host_7]"
+        ]
+      },
+      {
+        "agent": "blue_agent_4",
+        "zones": [
+          {
+            "zone": "admin_network_subnet",
+            "hosts_present": 9,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          },
+          {
+            "zone": "office_network_subnet",
+            "hosts_present": 13,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          },
+          {
+            "zone": "public_access_zone_subnet",
+            "hosts_present": 9,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": [
+          "[Remove office_network_subnet_user_host_8]",
+          "[Sleep]",
+          "[Sleep]"
+        ]
+      }
+    ]
+  },
+  "proposals": {
+    "blue_agent_0": "DeployDecoy restricted_zone_a_subnet_user_host_7",
+    "blue_agent_1": "DeployDecoy operational_zone_a_subnet_user_host_7",
+    "blue_agent_2": "DeployDecoy restricted_zone_b_subnet_user_host_7",
+    "blue_agent_3": "DeployDecoy operational_zone_b_subnet_user_host_7",
+    "blue_agent_4": "Remove office_network_subnet_user_host_8"
+  },
+  "result": {
+    "step": 60,
+    "source": "gemini",
+    "advice": {
+      "priorities": [
+        {
+          "zone": "operational_zone_a_subnet",
+          "priority_score": 0.9,
+          "reasoning": "Two hosts are currently generating alerts (process and network-connection), indicating potential malicious activity requiring active investigation and remediation by blue_agent_1."
+        },
+        {
+          "zone": "restricted_zone_a_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts present; routine decoy deployment is ongoing."
+        },
+        {
+          "zone": "restricted_zone_b_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts present; routine decoy deployment is ongoing."
+        },
+        {
+          "zone": "operational_zone_b_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts present; routine decoy deployment is ongoing."
+        },
+        {
+          "zone": "office_network_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts present."
+        },
+        {
+          "zone": "admin_network_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts present."
+        },
+        {
+          "zone": "public_access_zone_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts present."
+        }
+      ],
+      "conflicts": [],
+      "incident_report": {
+        "executive_summary": "At step 60, telemetry shows two alerting hosts in operational_zone_a_subnet (operational_zone_a_subnet_server_host_3 and operational_zone_a_subnet_user_host_2) with process and connection anomalies. All other zones are quiet.",
+        "kill_chain_stage": "Execution",
+        "mitigation_actions": [
+          "Investigate process and network-connection alerts on operational_zone_a_subnet_server_host_3.",
+          "Investigate connection alerts on operational_zone_a_subnet_user_host_2.",
+          "Consider isolating affected hosts in operational_zone_a_subnet if malicious activity is confirmed.",
+          "Review logs for unauthorized lateral movement originating from operational zone A hosts.",
+          "Continue monitoring decoy status across all zones."
+        ]
+      }
+    },
+    "model": "gemini-3.5-flash-lite",
+    "prompt_version": "cc4-v1",
+    "cache_key": "1f7814d00c377629db353a4a1b451eefb4c274a5f77855d227f3aecca7b9afb8",
+    "latency_ms": 2447.7654580005037,
+    "total_wall_ms": 2447.981624998647,
+    "attempts": 1,
+    "input_tokens": 1025,
+    "output_tokens": 560,
+    "cost_usd": 0.0017075,
+    "origin_latency_ms": null,
+    "origin_cost_usd": null,
+    "error": null
+  }
+}

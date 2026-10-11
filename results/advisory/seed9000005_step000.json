@@ -1,0 +1,161 @@
+{
+  "summary": {
+    "step": 0,
+    "mission_phase": "Preplanning",
+    "total_alerting_hosts": 0,
+    "agents": [
+      {
+        "agent": "blue_agent_0",
+        "zones": [
+          {
+            "zone": "restricted_zone_a_subnet",
+            "hosts_present": 9,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": []
+      },
+      {
+        "agent": "blue_agent_1",
+        "zones": [
+          {
+            "zone": "operational_zone_a_subnet",
+            "hosts_present": 11,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": []
+      },
+      {
+        "agent": "blue_agent_2",
+        "zones": [
+          {
+            "zone": "restricted_zone_b_subnet",
+            "hosts_present": 13,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": []
+      },
+      {
+        "agent": "blue_agent_3",
+        "zones": [
+          {
+            "zone": "operational_zone_b_subnet",
+            "hosts_present": 9,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": []
+      },
+      {
+        "agent": "blue_agent_4",
+        "zones": [
+          {
+            "zone": "admin_network_subnet",
+            "hosts_present": 7,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          },
+          {
+            "zone": "office_network_subnet",
+            "hosts_present": 8,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          },
+          {
+            "zone": "public_access_zone_subnet",
+            "hosts_present": 11,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": []
+      }
+    ]
+  },
+  "proposals": {
+    "blue_agent_0": "DeployDecoy restricted_zone_a_subnet_server_host_0",
+    "blue_agent_1": "DeployDecoy operational_zone_a_subnet_user_host_7",
+    "blue_agent_2": "DeployDecoy restricted_zone_b_subnet_server_host_0",
+    "blue_agent_3": "DeployDecoy operational_zone_b_subnet_server_host_0",
+    "blue_agent_4": "DeployDecoy admin_network_subnet_server_host_2"
+  },
+  "result": {
+    "step": 0,
+    "source": "gemini",
+    "advice": {
+      "priorities": [
+        {
+          "zone": "restricted_zone_a_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts observed. Routine monitoring and decoy deployment ongoing."
+        },
+        {
+          "zone": "operational_zone_a_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts observed. Routine monitoring and decoy deployment ongoing."
+        },
+        {
+          "zone": "restricted_zone_b_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts observed. Routine monitoring and decoy deployment ongoing."
+        },
+        {
+          "zone": "operational_zone_b_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts observed. Routine monitoring and decoy deployment ongoing."
+        },
+        {
+          "zone": "admin_network_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts observed. Routine monitoring and decoy deployment ongoing."
+        },
+        {
+          "zone": "office_network_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts observed. Routine monitoring ongoing."
+        },
+        {
+          "zone": "public_access_zone_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts observed. Routine monitoring ongoing."
+        }
+      ],
+      "conflicts": [],
+      "incident_report": {
+        "executive_summary": "All systems are operating normally with zero alerts reported across all zones at step 0. Agents are proactively deploying decoys to strengthen defenses.",
+        "kill_chain_stage": "None observed",
+        "mitigation_actions": [
+          "Continue routine monitoring across all network zones.",
+          "Proceed with planned decoy deployments to improve threat detection.",
+          "Verify integrity of logging and telemetry pipelines.",
+          "Maintain baseline security posture."
+        ]
+      }
+    },
+    "model": "gemini-3.5-flash-lite",
+    "prompt_version": "cc4-v1",
+    "cache_key": "58330505d9f2f8175f7716fccc1ecec8a26ac3d5655cad66f2f906373d0b7979",
+    "latency_ms": 1960.3199160010263,
+    "total_wall_ms": 1960.4444590004277,
+    "attempts": 1,
+    "input_tokens": 804,
+    "output_tokens": 474,
+    "cost_usd": 0.0014262,
+    "origin_latency_ms": null,
+    "origin_cost_usd": null,
+    "error": null
+  }
+}
