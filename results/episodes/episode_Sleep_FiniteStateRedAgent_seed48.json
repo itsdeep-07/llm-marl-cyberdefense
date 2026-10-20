@@ -5,11 +5,11 @@
     "red": "FiniteStateRedAgent",
     "seed": 48,
     "steps": 100,
-    "git_commit": "df820a650873fc692e1965f612b914182d11459c",
+    "git_commit": "d3769c4f587f1cd12a7c4a602744a6612c0d75c8",
     "source": "real_rollout",
     "host_count": 88
   },
-  "total_reward": -850.0,
+  "total_reward": -170.0,
   "steps": [
     {
       "step": 0,
@@ -22,16 +22,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -139,16 +139,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -256,16 +256,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -373,16 +373,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -490,16 +490,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -607,16 +607,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -724,16 +724,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -841,16 +841,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -958,16 +958,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -1075,16 +1075,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -1192,16 +1192,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -1309,16 +1309,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -1426,16 +1426,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -1543,16 +1543,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -1660,16 +1660,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -1777,16 +1777,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -1894,16 +1894,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -2011,16 +2011,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -2128,16 +2128,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -2245,16 +2245,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -2362,16 +2362,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -2479,16 +2479,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -2596,16 +2596,16 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
@@ -2713,21 +2713,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -1.0,
         "blue_agent_3": -1.0,
         "blue_agent_1": -1.0,
+        "blue_agent_4": -1.0,
         "blue_agent_2": -1.0,
         "blue_agent_0": -1.0
       },
-      "reward": -5.0,
-      "cumulative_reward": -5.0,
+      "reward": -1.0,
+      "cumulative_reward": -1.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -2830,21 +2830,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -5.0,
+      "cumulative_reward": -1.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -2947,21 +2947,21 @@
         "red_agent_5": "[PrivilegeEscalate office_network_subnet_user_host_1]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -1.0,
         "blue_agent_3": -1.0,
         "blue_agent_1": -1.0,
+        "blue_agent_4": -1.0,
         "blue_agent_2": -1.0,
         "blue_agent_0": -1.0
       },
-      "reward": -5.0,
-      "cumulative_reward": -10.0,
+      "reward": -1.0,
+      "cumulative_reward": -2.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -3064,21 +3064,21 @@
         "red_agent_5": "[DiscoverRemoteSystems 10.0.131.0/24]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -10.0,
+      "cumulative_reward": -2.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -3181,21 +3181,21 @@
         "red_agent_5": "[DiscoverRemoteSystems 10.0.131.0/24]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -10.0,
+      "cumulative_reward": -2.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -3298,21 +3298,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -10.0,
+      "cumulative_reward": -2.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -3415,21 +3415,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -10.0,
+      "cumulative_reward": -2.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -3532,21 +3532,21 @@
         "red_agent_5": "[StealthServiceDiscovery 10.0.131.254]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -10.0,
+      "cumulative_reward": -2.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -3649,21 +3649,21 @@
         "red_agent_5": "[DiscoverRemoteSystems 10.0.131.0/24]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -10.0,
+      "cumulative_reward": -2.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -3766,21 +3766,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -10.0,
+      "cumulative_reward": -2.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -3883,21 +3883,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -1.0,
         "blue_agent_3": -1.0,
         "blue_agent_1": -1.0,
+        "blue_agent_4": -1.0,
         "blue_agent_2": -1.0,
         "blue_agent_0": -1.0
       },
-      "reward": -5.0,
-      "cumulative_reward": -15.0,
+      "reward": -1.0,
+      "cumulative_reward": -3.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -4000,21 +4000,21 @@
         "red_agent_5": "[StealthServiceDiscovery 10.0.131.122]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -15.0,
+      "cumulative_reward": -3.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -4117,21 +4117,21 @@
         "red_agent_5": "[AggressiveServiceDiscovery 10.0.131.215]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -15.0,
+      "cumulative_reward": -3.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -4234,21 +4234,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -2.0,
         "blue_agent_3": -2.0,
         "blue_agent_1": -2.0,
+        "blue_agent_4": -2.0,
         "blue_agent_2": -2.0,
         "blue_agent_0": -2.0
       },
-      "reward": -10.0,
-      "cumulative_reward": -25.0,
+      "reward": -2.0,
+      "cumulative_reward": -5.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -4351,21 +4351,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -25.0,
+      "cumulative_reward": -5.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -4468,21 +4468,21 @@
         "red_agent_5": "[StealthServiceDiscovery 10.0.131.56]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -25.0,
+      "cumulative_reward": -5.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -4585,21 +4585,21 @@
         "red_agent_5": "[AggressiveServiceDiscovery 10.0.131.252]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -25.0,
+      "cumulative_reward": -5.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -4702,21 +4702,21 @@
         "red_agent_5": "[AggressiveServiceDiscovery 10.0.131.251]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -25.0,
+      "cumulative_reward": -5.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -4819,21 +4819,21 @@
         "red_agent_5": "[AggressiveServiceDiscovery 10.0.131.219]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -2.0,
         "blue_agent_3": -2.0,
         "blue_agent_1": -2.0,
+        "blue_agent_4": -2.0,
         "blue_agent_2": -2.0,
         "blue_agent_0": -2.0
       },
-      "reward": -10.0,
-      "cumulative_reward": -35.0,
+      "reward": -2.0,
+      "cumulative_reward": -7.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -4936,21 +4936,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -35.0,
+      "cumulative_reward": -7.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -5053,21 +5053,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -35.0,
+      "cumulative_reward": -7.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -5170,21 +5170,21 @@
         "red_agent_5": "[StealthServiceDiscovery 10.0.131.253]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -35.0,
+      "cumulative_reward": -7.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -5287,21 +5287,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -35.0,
+      "cumulative_reward": -7.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -5404,21 +5404,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -35.0,
+      "cumulative_reward": -7.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -5521,21 +5521,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -35.0,
+      "cumulative_reward": -7.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -5638,21 +5638,21 @@
         "red_agent_5": "[ExploitRemoteService 10.0.131.252]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -1.0,
         "blue_agent_3": -1.0,
         "blue_agent_1": -1.0,
+        "blue_agent_4": -1.0,
         "blue_agent_2": -1.0,
         "blue_agent_0": -1.0
       },
-      "reward": -5.0,
-      "cumulative_reward": -40.0,
+      "reward": -1.0,
+      "cumulative_reward": -8.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -5755,21 +5755,21 @@
         "red_agent_5": "[AggressiveServiceDiscovery 10.0.131.249]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -40.0,
+      "cumulative_reward": -8.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -5872,21 +5872,21 @@
         "red_agent_5": "[AggressiveServiceDiscovery 10.0.131.65]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -40.0,
+      "cumulative_reward": -8.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -5989,21 +5989,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -40.0,
+      "cumulative_reward": -8.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -6106,21 +6106,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -40.0,
+      "cumulative_reward": -8.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -6223,21 +6223,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -40.0,
+      "cumulative_reward": -8.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -6340,21 +6340,21 @@
         "red_agent_5": "[ExploitRemoteService 10.0.131.251]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -2.0,
         "blue_agent_3": -2.0,
         "blue_agent_1": -2.0,
+        "blue_agent_4": -2.0,
         "blue_agent_2": -2.0,
         "blue_agent_0": -2.0
       },
-      "reward": -10.0,
-      "cumulative_reward": -50.0,
+      "reward": -2.0,
+      "cumulative_reward": -10.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -6457,21 +6457,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -1.0,
         "blue_agent_3": -1.0,
         "blue_agent_1": -1.0,
+        "blue_agent_4": -1.0,
         "blue_agent_2": -1.0,
         "blue_agent_0": -1.0
       },
-      "reward": -5.0,
-      "cumulative_reward": -55.0,
+      "reward": -1.0,
+      "cumulative_reward": -11.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -6574,21 +6574,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -55.0,
+      "cumulative_reward": -11.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -6691,21 +6691,21 @@
         "red_agent_5": "[StealthServiceDiscovery 10.0.131.86]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -55.0,
+      "cumulative_reward": -11.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -6808,21 +6808,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -55.0,
+      "cumulative_reward": -11.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -6925,21 +6925,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -55.0,
+      "cumulative_reward": -11.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -7042,21 +7042,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -55.0,
+      "cumulative_reward": -11.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -7159,21 +7159,21 @@
         "red_agent_5": "[ExploitRemoteService 10.0.131.251]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -2.0,
         "blue_agent_3": -2.0,
         "blue_agent_1": -2.0,
+        "blue_agent_4": -2.0,
         "blue_agent_2": -2.0,
         "blue_agent_0": -2.0
       },
-      "reward": -10.0,
-      "cumulative_reward": -65.0,
+      "reward": -2.0,
+      "cumulative_reward": -13.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -7276,21 +7276,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -65.0,
+      "cumulative_reward": -13.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -7393,21 +7393,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -65.0,
+      "cumulative_reward": -13.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -7510,21 +7510,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -65.0,
+      "cumulative_reward": -13.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -7627,21 +7627,21 @@
         "red_agent_5": "[ExploitRemoteService 10.0.131.249]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -1.0,
         "blue_agent_3": -1.0,
         "blue_agent_1": -1.0,
+        "blue_agent_4": -1.0,
         "blue_agent_2": -1.0,
         "blue_agent_0": -1.0
       },
-      "reward": -5.0,
-      "cumulative_reward": -70.0,
+      "reward": -1.0,
+      "cumulative_reward": -14.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -7744,21 +7744,21 @@
         "red_agent_5": "[AggressiveServiceDiscovery 10.0.179.243]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -70.0,
+      "cumulative_reward": -14.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -7861,21 +7861,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -1.0,
         "blue_agent_3": -1.0,
         "blue_agent_1": -1.0,
+        "blue_agent_4": -1.0,
         "blue_agent_2": -1.0,
         "blue_agent_0": -1.0
       },
-      "reward": -5.0,
-      "cumulative_reward": -75.0,
+      "reward": -1.0,
+      "cumulative_reward": -15.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -7978,21 +7978,21 @@
         "red_agent_5": "[PrivilegeEscalate public_access_zone_subnet_server_host_2]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -3.0,
         "blue_agent_3": -3.0,
         "blue_agent_1": -3.0,
+        "blue_agent_4": -3.0,
         "blue_agent_2": -3.0,
         "blue_agent_0": -3.0
       },
-      "reward": -15.0,
-      "cumulative_reward": -90.0,
+      "reward": -3.0,
+      "cumulative_reward": -18.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -8095,21 +8095,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -90.0,
+      "cumulative_reward": -18.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -8212,21 +8212,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -3.0,
         "blue_agent_3": -3.0,
         "blue_agent_1": -3.0,
+        "blue_agent_4": -3.0,
         "blue_agent_2": -3.0,
         "blue_agent_0": -3.0
       },
-      "reward": -15.0,
-      "cumulative_reward": -105.0,
+      "reward": -3.0,
+      "cumulative_reward": -21.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -8329,21 +8329,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -11.0,
         "blue_agent_3": -11.0,
         "blue_agent_1": -11.0,
+        "blue_agent_4": -11.0,
         "blue_agent_2": -11.0,
         "blue_agent_0": -11.0
       },
-      "reward": -55.0,
-      "cumulative_reward": -160.0,
+      "reward": -11.0,
+      "cumulative_reward": -32.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -8446,21 +8446,21 @@
         "red_agent_5": "[ExploitRemoteService 10.0.131.249]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -1.0,
         "blue_agent_3": -1.0,
         "blue_agent_1": -1.0,
+        "blue_agent_4": -1.0,
         "blue_agent_2": -1.0,
         "blue_agent_0": -1.0
       },
-      "reward": -5.0,
-      "cumulative_reward": -165.0,
+      "reward": -1.0,
+      "cumulative_reward": -33.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -8563,21 +8563,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -165.0,
+      "cumulative_reward": -33.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -8680,21 +8680,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -1.0,
         "blue_agent_3": -1.0,
         "blue_agent_1": -1.0,
+        "blue_agent_4": -1.0,
         "blue_agent_2": -1.0,
         "blue_agent_0": -1.0
       },
-      "reward": -5.0,
-      "cumulative_reward": -170.0,
+      "reward": -1.0,
+      "cumulative_reward": -34.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -8797,21 +8797,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -170.0,
+      "cumulative_reward": -34.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -8914,21 +8914,21 @@
         "red_agent_5": "[ExploitRemoteService 10.0.179.243]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -4.0,
         "blue_agent_3": -4.0,
         "blue_agent_1": -4.0,
+        "blue_agent_4": -4.0,
         "blue_agent_2": -4.0,
         "blue_agent_0": -4.0
       },
-      "reward": -20.0,
-      "cumulative_reward": -190.0,
+      "reward": -4.0,
+      "cumulative_reward": -38.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -9031,21 +9031,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -10.0,
         "blue_agent_3": -10.0,
         "blue_agent_1": -10.0,
+        "blue_agent_4": -10.0,
         "blue_agent_2": -10.0,
         "blue_agent_0": -10.0
       },
-      "reward": -50.0,
-      "cumulative_reward": -240.0,
+      "reward": -10.0,
+      "cumulative_reward": -48.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -9148,21 +9148,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -11.0,
         "blue_agent_3": -11.0,
         "blue_agent_1": -11.0,
+        "blue_agent_4": -11.0,
         "blue_agent_2": -11.0,
         "blue_agent_0": -11.0
       },
-      "reward": -55.0,
-      "cumulative_reward": -295.0,
+      "reward": -11.0,
+      "cumulative_reward": -59.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -9265,21 +9265,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -20.0,
         "blue_agent_3": -20.0,
         "blue_agent_1": -20.0,
+        "blue_agent_4": -20.0,
         "blue_agent_2": -20.0,
         "blue_agent_0": -20.0
       },
-      "reward": -100.0,
-      "cumulative_reward": -395.0,
+      "reward": -20.0,
+      "cumulative_reward": -79.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -9382,21 +9382,21 @@
         "red_agent_5": "[ExploitRemoteService 10.0.131.249]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -395.0,
+      "cumulative_reward": -79.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -9499,21 +9499,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -395.0,
+      "cumulative_reward": -79.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -9616,21 +9616,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -10.0,
         "blue_agent_3": -10.0,
         "blue_agent_1": -10.0,
+        "blue_agent_4": -10.0,
         "blue_agent_2": -10.0,
         "blue_agent_0": -10.0
       },
-      "reward": -50.0,
-      "cumulative_reward": -445.0,
+      "reward": -10.0,
+      "cumulative_reward": -89.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -9733,21 +9733,21 @@
         "red_agent_5": "[StealthServiceDiscovery 10.0.131.250]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -14.0,
         "blue_agent_3": -14.0,
         "blue_agent_1": -14.0,
+        "blue_agent_4": -14.0,
         "blue_agent_2": -14.0,
         "blue_agent_0": -14.0
       },
-      "reward": -70.0,
-      "cumulative_reward": -515.0,
+      "reward": -14.0,
+      "cumulative_reward": -103.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -9850,21 +9850,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -515.0,
+      "cumulative_reward": -103.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -9967,21 +9967,21 @@
         "red_agent_5": "[DiscoverDeception public_access_zone_subnet_user_host_9]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -515.0,
+      "cumulative_reward": -103.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -10084,21 +10084,21 @@
         "red_agent_5": "[AggressiveServiceDiscovery 10.0.131.241]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -515.0,
+      "cumulative_reward": -103.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -10201,21 +10201,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -515.0,
+      "cumulative_reward": -103.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -10318,21 +10318,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -515.0,
+      "cumulative_reward": -103.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -10435,21 +10435,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -10.0,
         "blue_agent_3": -10.0,
         "blue_agent_1": -10.0,
+        "blue_agent_4": -10.0,
         "blue_agent_2": -10.0,
         "blue_agent_0": -10.0
       },
-      "reward": -50.0,
-      "cumulative_reward": -565.0,
+      "reward": -10.0,
+      "cumulative_reward": -113.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -10552,21 +10552,21 @@
         "red_agent_5": "[ExploitRemoteService 10.0.131.253]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -13.0,
         "blue_agent_3": -13.0,
         "blue_agent_1": -13.0,
+        "blue_agent_4": -13.0,
         "blue_agent_2": -13.0,
         "blue_agent_0": -13.0
       },
-      "reward": -65.0,
-      "cumulative_reward": -630.0,
+      "reward": -13.0,
+      "cumulative_reward": -126.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -10669,21 +10669,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -3.0,
         "blue_agent_3": -3.0,
         "blue_agent_1": -3.0,
+        "blue_agent_4": -3.0,
         "blue_agent_2": -3.0,
         "blue_agent_0": -3.0
       },
-      "reward": -15.0,
-      "cumulative_reward": -645.0,
+      "reward": -3.0,
+      "cumulative_reward": -129.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -10786,21 +10786,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -3.0,
         "blue_agent_3": -3.0,
         "blue_agent_1": -3.0,
+        "blue_agent_4": -3.0,
         "blue_agent_2": -3.0,
         "blue_agent_0": -3.0
       },
-      "reward": -15.0,
-      "cumulative_reward": -660.0,
+      "reward": -3.0,
+      "cumulative_reward": -132.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -10903,21 +10903,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -13.0,
         "blue_agent_3": -13.0,
         "blue_agent_1": -13.0,
+        "blue_agent_4": -13.0,
         "blue_agent_2": -13.0,
         "blue_agent_0": -13.0
       },
-      "reward": -65.0,
-      "cumulative_reward": -725.0,
+      "reward": -13.0,
+      "cumulative_reward": -145.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -11020,21 +11020,21 @@
         "red_agent_5": "[ExploitRemoteService 10.0.131.241]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -13.0,
         "blue_agent_3": -13.0,
         "blue_agent_1": -13.0,
+        "blue_agent_4": -13.0,
         "blue_agent_2": -13.0,
         "blue_agent_0": -13.0
       },
-      "reward": -65.0,
-      "cumulative_reward": -790.0,
+      "reward": -13.0,
+      "cumulative_reward": -158.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -11137,21 +11137,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -1.0,
         "blue_agent_3": -1.0,
         "blue_agent_1": -1.0,
+        "blue_agent_4": -1.0,
         "blue_agent_2": -1.0,
         "blue_agent_0": -1.0
       },
-      "reward": -5.0,
-      "cumulative_reward": -795.0,
+      "reward": -1.0,
+      "cumulative_reward": -159.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -11254,21 +11254,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -10.0,
         "blue_agent_3": -10.0,
         "blue_agent_1": -10.0,
+        "blue_agent_4": -10.0,
         "blue_agent_2": -10.0,
         "blue_agent_0": -10.0
       },
-      "reward": -50.0,
-      "cumulative_reward": -845.0,
+      "reward": -10.0,
+      "cumulative_reward": -169.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -11371,21 +11371,21 @@
         "red_agent_5": "[Sleep]"
       },
       "blue_actions": {
-        "blue_agent_4": "[Sleep]",
         "blue_agent_3": "[Sleep]",
         "blue_agent_1": "[Sleep]",
+        "blue_agent_4": "[Sleep]",
         "blue_agent_2": "[Sleep]",
         "blue_agent_0": "[Sleep]"
       },
       "rewards_per_agent": {
-        "blue_agent_4": -1.0,
         "blue_agent_3": -1.0,
         "blue_agent_1": -1.0,
+        "blue_agent_4": -1.0,
         "blue_agent_2": -1.0,
         "blue_agent_0": -1.0
       },
-      "reward": -5.0,
-      "cumulative_reward": -850.0,
+      "reward": -1.0,
+      "cumulative_reward": -170.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",
@@ -11489,14 +11489,14 @@
       },
       "blue_actions": {},
       "rewards_per_agent": {
-        "blue_agent_4": 0.0,
         "blue_agent_3": 0.0,
         "blue_agent_1": 0.0,
+        "blue_agent_4": 0.0,
         "blue_agent_2": 0.0,
         "blue_agent_0": 0.0
       },
       "reward": 0.0,
-      "cumulative_reward": -850.0,
+      "cumulative_reward": -170.0,
       "host_state": {
         "restricted_zone_a_subnet_router": "no_red_session",
         "restricted_zone_a_subnet_user_host_0": "no_red_session",

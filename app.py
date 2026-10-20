@@ -1,355 +1,539 @@
-import os
-import json
-import time
-import pandas as pd
-import numpy as np
-import streamlit as st
-import plotly.graph_objects as go
-import plotly.express as px
+"""Evidence-driven Streamlit dashboard for saved CC4 experiments."""
 
-# Streamlit Page Setup
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import pandas as pd
+import plotly.graph_objects as go
+import streamlit as st
+
+
+ROOT = Path(__file__).resolve().parent
+RESULTS = ROOT / "results"
+EPISODES = RESULTS / "episodes"
+TABLES = RESULTS / "tables"
+TRAINING = RESULTS / "training"
+
 st.set_page_config(
-    page_title="CybORG LLM-MARL Incident Response Demo",
+    page_title="CC4 LLM-MARL Incident Response",
     page_icon="🛡️",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
 )
 
-# Custom Styling
-st.markdown("""
-<style>
-    .main-title { font-size: 2.1rem; font-weight: 800; color: #0D47A1; margin-bottom: 0px; }
-    .sub-title { font-size: 1.05rem; color: #455A64; margin-bottom: 18px; }
-    .stTabs [data-baseweb="tab-list"] { gap: 14px; }
-    .stTabs [data-baseweb="tab"] { font-size: 1.05rem; font-weight: 600; padding: 10px 18px; }
-    .log-box { background: #1E1E1E; color: #76FF03; font-family: 'Courier New', monospace; padding: 14px; border-radius: 8px; height: 380px; overflow-y: scroll; }
-    .event-line { margin-bottom: 6px; border-bottom: 1px solid #333; padding-bottom: 4px; }
-</style>
-""", unsafe_allow_html=True)
-
-# Sidebar Controls
-st.sidebar.header("🕹️ Simulation Controls")
-
-# Real Gemini API Integration in Sidebar
-st.sidebar.markdown("### 🤖 Google Gemini AI")
-user_gemini_key = st.sidebar.text_input("Gemini API Key", type="password", placeholder="Enter AI Studio Key...", help="Paste your Gemini API key here to enable live cloud calls")
-env_key = os.getenv("GEMINI_API_KEY", "")
-active_api_key = user_gemini_key.strip() if user_gemini_key.strip() else (env_key if env_key != "your_gemini_api_key_here" else "")
-
-if active_api_key:
-    st.sidebar.success("🟢 Live Gemini API Connected")
-else:
-    st.sidebar.info("🟡 Offline / Emulation Mode")
+st.markdown(
+    """
+    <style>
+    .stTabs [data-baseweb="tab-list"] { gap: 12px; }
+    .stTabs [data-baseweb="tab"] { font-weight: 600; }
+    .event-log { background: #1e1e1e; color: #d7ff8a; padding: 12px;
+                 border-radius: 8px; height: 360px; overflow-y: auto;
+                 font-family: monospace; white-space: pre-wrap; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 
-# 13 CAGE 2 Host & Subnet Mapping
-SUBNET_MAP = {
-    "User": ['User0', 'User1', 'User2', 'User3', 'User4'],
-    "Enterprise": ['Enterprise0', 'Enterprise1', 'Enterprise2', 'Defender'],
-    "Operational": ['Op_Host0', 'Op_Host1', 'Op_Host2', 'Op_Server0']
-}
+def _read_json(path: Path) -> dict:
+    with path.open(encoding="utf-8") as handle:
+        return json.load(handle)
 
-NODE_COORDS = {
-    # User Subnet (Left column x=1)
-    'User0': (1, 5), 'User1': (1, 4), 'User2': (1, 3), 'User3': (1, 2), 'User4': (1, 1),
-    # Enterprise Subnet (Middle column x=2.5)
-    'Enterprise0': (2.5, 4.5), 'Enterprise1': (2.5, 3.5), 'Enterprise2': (2.5, 2.5), 'Defender': (2.5, 1.5),
-    # Operational Subnet (Right column x=4)
-    'Op_Host0': (4, 4.5), 'Op_Host1': (4, 3.5), 'Op_Host2': (4, 2.5), 'Op_Server0': (4, 1.5)
-}
-
-COLOR_MAP = {
-    "Secure": "#2E7D32",       # Green
-    "Scanned": "#F57F17",      # Orange/Yellow
-    "Compromised": "#D32F2F",  # Red
-    "Restored": "#1976D2"      # Blue
-}
-
-# Episode log directory
-EPISODES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results", "episodes")
 
 @st.cache_data
-def load_episode_data(agent, red, seed):
-    filename = f"episode_{agent}_{red}_seed_{seed}.json"
-    filepath = os.path.join(EPISODES_DIR, filename)
-    if os.path.exists(filepath):
-        with open(filepath, "r") as f:
-            return json.load(f)
-    return None
+def episode_catalog() -> pd.DataFrame:
+    rows = []
+    for path in sorted(EPISODES.glob("*.json")):
+        try:
+            data = _read_json(path)
+            provenance = data.get("provenance", {})
+            rows.append(
+                {
+                    "label": path.name,
+                    "path": str(path),
+                    "agent": provenance.get("agent", "unknown"),
+                    "red": provenance.get("red", "unknown"),
+                    "seed": provenance.get("seed"),
+                    "steps": provenance.get("steps", len(data.get("steps", []))),
+                    "git_commit": provenance.get("git_commit", "unknown"),
+                    "source": provenance.get("source", "unknown"),
+                    "host_count": provenance.get("host_count"),
+                    "total_reward": data.get("total_reward"),
+                }
+            )
+        except (OSError, json.JSONDecodeError, TypeError):
+            continue
+    return pd.DataFrame(rows)
 
-def build_network_graph(host_status, active_red_target=None, title="Enterprise Network Topology"):
-    fig = go.Figure()
-    
-    # 1. Inter-subnet Backbone Edges
-    backbone_edges = [
-        ('User2', 'Enterprise1'), ('User1', 'Enterprise0'),
-        ('Enterprise1', 'Op_Host1'), ('Enterprise0', 'Op_Server0'),
-        ('Enterprise2', 'Op_Host2')
+
+@st.cache_data
+def csv_table(name: str) -> pd.DataFrame:
+    path = TABLES / name
+    return pd.read_csv(path) if path.exists() else pd.DataFrame()
+
+
+@st.cache_data
+def training_catalog() -> pd.DataFrame:
+    frames = []
+    for path in sorted(TRAINING.glob("*_train.csv")):
+        frame = pd.read_csv(path)
+        frame["run"] = path.stem.removesuffix("_train")
+        frames.append(frame)
+    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+
+
+def show_empty(message: str) -> None:
+    st.info(message)
+
+
+def status_counts(host_state: dict) -> dict:
+    counts: dict[str, int] = {}
+    for state in host_state.values():
+        counts[state] = counts.get(state, 0) + 1
+    return counts
+
+
+def zone_name(host: str) -> str:
+    return host.split("_subnet", 1)[0].replace("_", " ").title()
+
+
+def grouped_hosts(host_state: dict) -> dict[str, list[tuple[str, str]]]:
+    grouped: dict[str, list[tuple[str, str]]] = {}
+    for host, state in sorted(host_state.items()):
+        grouped.setdefault(zone_name(host), []).append((host, state))
+    return grouped
+
+
+def build_zone_graph(host_state: dict) -> go.Figure:
+    grouped = grouped_hosts(host_state)
+    figure = go.Figure()
+    zone_names = list(grouped)
+    red_counts = [
+        sum(state == "red_session" for _, state in grouped[zone])
+        for zone in zone_names
     ]
-    for n1, n2 in backbone_edges:
-        x0, y0 = NODE_COORDS[n1]
-        x1, y1 = NODE_COORDS[n2]
-        fig.add_trace(go.Scatter(
-            x=[x0, x1], y=[y0, y1], mode='lines',
-            line=dict(color='#CFD8DC', width=2, dash='dot'),
-            hoverinfo='none', showlegend=False
-        ))
-
-    # 2. Nodes by Subnet Grouping
-    for sub, hosts in SUBNET_MAP.items():
-        xs, ys, colors, texts, sizes, symbols = [], [], [], [], [], []
-        for h in hosts:
-            x, y = NODE_COORDS[h]
-            xs.append(x)
-            ys.append(y)
-            status = host_status.get(h, "Secure")
-            colors.append(COLOR_MAP.get(status, "#2E7D32"))
-            
-            # Highlight target if Red is attacking this host
-            is_target = (active_red_target and active_red_target in h)
-            sizes.append(42 if is_target else 30)
-            symbols.append("star" if is_target else ("diamond" if "Server" in h or h == "Defender" else "circle"))
-            texts.append(f"<b>{h}</b><br>{status}")
-
-        fig.add_trace(go.Scatter(
-            x=xs, y=ys, mode='markers+text',
-            marker=dict(size=sizes, color=colors, symbol=symbols, line=dict(color='#FFFFFF', width=2)),
-            text=texts, textposition="top center", name=f"{sub} Subnet",
-            hoverinfo='text'
-        ))
-
-    fig.update_layout(
-        title=title,
-        xaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[0.5, 4.5]),
-        yaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[0.2, 5.8]),
-        margin=dict(l=10, r=10, t=40, b=10),
-        height=400,
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+    host_counts = [len(grouped[zone]) for zone in zone_names]
+    figure.add_trace(
+        go.Scatter(
+            x=list(range(len(zone_names))),
+            y=[0] * len(zone_names),
+            mode="markers+text",
+            marker={
+                "size": [28 + 4 * count for count in red_counts],
+                "color": red_counts,
+                "colorscale": [[0, "#2e7d32"], [1, "#d32f2f"]],
+                "cmin": 0,
+                "cmax": max(max(red_counts, default=0), 1),
+                "line": {"color": "#ffffff", "width": 2},
+                "colorbar": {"title": "Red sessions"},
+            },
+            text=[
+                f"{zone}<br>{red}/{total} Red sessions"
+                for zone, red, total in zip(zone_names, red_counts, host_counts)
+            ],
+            textposition="top center",
+            hovertemplate=[
+                f"{zone}<br>{red} Red sessions / {total} hosts<extra></extra>"
+                for zone, red, total in zip(zone_names, red_counts, host_counts)
+            ],
+            showlegend=False,
+        )
     )
-    return fig
+    figure.update_layout(
+        title="Randomized CC4 enterprise network by zone",
+        xaxis={
+            "tickmode": "array",
+            "tickvals": list(range(len(zone_names))),
+            "ticktext": zone_names,
+            "showgrid": False,
+            "zeroline": False,
+        },
+        yaxis={"showticklabels": False, "showgrid": False, "zeroline": False, "range": [-1, 1]},
+        height=300,
+        margin={"l": 10, "r": 10, "t": 55, "b": 10},
+    )
+    return figure
 
-# 5 Dedicated Tabs as Specified
-tab_live, tab_compare, tab_train, tab_llm, tab_arch = st.tabs([
-    "1. Live Episode (Demo)",
-    "2. Compare Agents",
-    "3. Training Convergence",
-    "4. LLM Orchestrator",
-    "5. Architecture & Theory"
-])
 
-# ==============================================================================
-# TAB 1: LIVE EPISODE (THE MAIN DEMO)
-# ==============================================================================
+def replay_chart(steps: list[dict], upto: int | None = None) -> go.Figure:
+    visible = steps if upto is None else steps[: upto + 1]
+    return go.Figure(
+        go.Scatter(
+            x=[step["step"] for step in visible],
+            y=[step["cumulative_reward"] for step in visible],
+            mode="lines+markers",
+            name="Cumulative team reward",
+        )
+    ).update_layout(
+        title="Cumulative team reward",
+        xaxis_title="CC4 step",
+        yaxis_title="Reward",
+        height=280,
+        margin={"l": 10, "r": 10, "t": 40, "b": 10},
+    )
+
+
+def replay_selector(catalog: pd.DataFrame, key: str) -> tuple[pd.DataFrame, dict | None]:
+    if catalog.empty:
+        return catalog, None
+    selected = st.selectbox("Saved CC4 episode", catalog["label"].tolist(), key=key)
+    row = catalog.loc[catalog["label"] == selected].iloc[0]
+    return row.to_frame().T, _read_json(Path(row["path"]))
+
+
+def render_zone_detail(host_state: dict, key: str) -> None:
+    grouped = grouped_hosts(host_state)
+    if not grouped:
+        return
+    selected_zone = st.selectbox("Expand zone into hosts", list(grouped), key=key)
+    rows = [
+        {"host": host, "state": state}
+        for host, state in grouped[selected_zone]
+    ]
+    st.dataframe(pd.DataFrame(rows), hide_index=True, use_container_width=True)
+
+
+def paired_scoreboard() -> pd.DataFrame:
+    path = TABLES / "heldout_episode_returns.csv"
+    if not path.exists():
+        return pd.DataFrame()
+    raw = pd.read_csv(path)
+    required = {"agent", "eval_seed", "return"}
+    if not required.issubset(raw.columns):
+        return pd.DataFrame()
+    baseline = raw[raw["agent"] == "Sleep"][["eval_seed", "return"]].rename(
+        columns={"return": "sleep_return"}
+    )
+    rows = []
+    for agent in sorted(set(raw["agent"]) - {"Sleep"}):
+        current = raw[raw["agent"] == agent][["eval_seed", "return"]].rename(
+            columns={"return": "agent_return"}
+        )
+        paired = current.merge(baseline, on="eval_seed", how="inner")
+        if paired.empty:
+            continue
+        differences = paired["agent_return"] - paired["sleep_return"]
+        mean = differences.mean()
+        std = differences.std(ddof=1)
+        n = len(differences)
+        margin = 1.96 * std / (n**0.5) if n > 1 else float("nan")
+        rows.append(
+            {
+                "agent": agent,
+                "episodes": n,
+                "mean_difference_vs_sleep": mean,
+                "ci95_low": mean - margin,
+                "ci95_high": mean + margin,
+            }
+        )
+    return pd.DataFrame(rows)
+
+
+def load_advisory_step(step: int) -> dict | None:
+    path = RESULTS / "advisory" / f"seed9000000_step{step:03d}.json"
+    return _read_json(path) if path.exists() else None
+
+
+def baseline_summary() -> pd.DataFrame:
+    table = csv_table("baselines.csv")
+    if table.empty or "agent" not in table.columns:
+        return pd.DataFrame()
+    summary = (
+        table[table["row_type"] == "summary"].copy()
+        if "row_type" in table.columns
+        else table.copy()
+    )
+    if summary.empty:
+        summary = table.groupby("agent", as_index=False).agg(
+            mean_reward=("mean_reward", "mean"),
+            std_reward=("mean_reward", "std"),
+        )
+    return summary
+
+
+catalog = episode_catalog()
+st.title("🛡️ CC4 LLM-MARL Incident Response")
+st.caption(
+    "CC4 uses a randomized enterprise network of about 100 hosts across 9 zones. "
+    "Exact host counts vary by episode and are read from the saved rollout."
+)
+
+with st.sidebar:
+    st.header("Evidence inventory")
+    st.metric("Saved CC4 episodes", len(catalog))
+    st.metric("Training runs", len(training_catalog()["run"].unique()) if not training_catalog().empty else 0)
+    st.metric("Advisory calls", len(csv_table("advisory_calls.csv")))
+    if not catalog.empty:
+        st.success("CC4 real rollout data available")
+    else:
+        st.warning("No CC4 replay files found")
+
+tab_live, tab_compare, tab_train, tab_llm, tab_arch = st.tabs(
+    ["Episode Replay", "Compare", "Training", "LLM Advisory", "Architecture"]
+)
+
 with tab_live:
-    st.subheader("🎮 Interactive Simulation Playback")
-    
-    # Controls at Top
-    c1, c2, c3, c4 = st.columns([1.5, 1.5, 1.0, 2.0])
-    with c1:
-        sel_agent = st.selectbox("Blue Agent Architecture", ["MAPPO+LLM", "MAPPO", "RuleBased", "Random", "Sleep"], key="live_agent")
-    with c2:
-        sel_red = st.selectbox("Red Attacker Strategy", ["B_line", "Meander"], key="live_red")
-    with c3:
-        sel_seed = st.selectbox("Seed", [42, 101, 777], key="live_seed")
-        
-    ep_data = load_episode_data(sel_agent, sel_red, sel_seed)
-    
-    if ep_data is None:
-        st.error("No real rollout log found in results/episodes/. Generate a CC4 rollout before opening this tab.")
+    st.subheader("Saved CC4 episode replay")
+    selected_meta, episode = replay_selector(catalog, "replay_episode")
+    if episode is None:
+        show_empty("No results yet: add a real JSON rollout under results/episodes/.")
     else:
-        steps = ep_data["steps"]
-        total_steps = len(steps)
-        
-        with c4:
-            step_idx = st.slider("Scrub Simulation Step", 0, total_steps - 1, 0, key="live_slider")
-            
-        cur_step_data = steps[step_idx]
-        cur_hosts = cur_step_data["host_status"]
-        red_act = cur_step_data["red_action"]
-        blue_acts = cur_step_data["blue_actions"]
-        
-        # Extract target from Red action string if any
-        red_target = None
-        if "->" in red_act:
-            red_target = red_act.split("->")[-1].strip()
+        provenance = episode["provenance"]
+        st.caption(
+            f"Source: `{provenance.get('source')}` | agent `{provenance.get('agent')}` | "
+            f"red `{provenance.get('red')}` | seed `{provenance.get('seed')}` | "
+            f"commit `{provenance.get('git_commit')}`"
+        )
+        steps = episode.get("steps", [])
+        step_index = st.slider("Replay step", 0, max(len(steps) - 1, 0), 0, key="replay_step")
+        step = steps[step_index]
+        host_state = step.get("host_state", {})
+        counts = status_counts(host_state)
+        c1, c2, c3, c4 = st.columns(4)
+        c1.metric("Cumulative reward", f"{step.get('cumulative_reward', 0):.1f}")
+        c2.metric("Hosts", len(host_state))
+        c3.metric("Red sessions", counts.get("red_session", 0))
+        c4.metric("Step reward", f"{step.get('reward', 0):.1f}")
+        left, right = st.columns([1.35, 1])
+        with left:
+            st.plotly_chart(
+                build_zone_graph(host_state),
+                use_container_width=True,
+            )
+            render_zone_detail(host_state, "replay_zone")
+        with right:
+            st.markdown("**Event log**")
+            lines = []
+            for item in steps[: step_index + 1]:
+                lines.append(
+                    f"step {item.get('step')}: reward={item.get('reward')} | "
+                    f"red={item.get('red_activity')} | blue={item.get('blue_actions')}"
+                )
+            st.markdown(
+                f'<div class="event-log">{chr(10).join(reversed(lines))}</div>',
+                unsafe_allow_html=True,
+            )
+        st.plotly_chart(replay_chart(steps, step_index), use_container_width=True)
+        with st.expander("Raw saved step"):
+            st.json(step)
 
-        # Left / Right Split
-        col_net, col_log = st.columns([1.3, 1.0])
-        
-        with col_net:
-            fig_net = build_network_graph(cur_hosts, active_red_target=red_target, title=f"Network State at Step {step_idx} (Red Action: {red_act})")
-            st.plotly_chart(fig_net, use_container_width=True)
-
-        with col_log:
-            st.markdown(f"**📜 Event Audit Log (Steps 0 to {step_idx})**")
-            log_lines = []
-            for s in range(step_idx + 1):
-                s_data = steps[s]
-                b_str = ", ".join([f"{k}:{v}" for k, v in s_data["blue_actions"].items()])
-                log_lines.append(f"<div class='event-line'><b>Step {s:02d}</b> | <span style='color:#FF5252;'>{s_data['red_action']}</span><br>&nbsp;&nbsp;↳ <span style='color:#40C4FF;'>Blue: {b_str}</span> | Rew: {s_data['reward']}</div>")
-            
-            st.markdown(f"<div class='log-box'>{''.join(reversed(log_lines))}</div>", unsafe_allow_html=True)
-
-        # Below: Metrics & Charts
-        st.markdown("---")
-        m1, m2, m3, m4 = st.columns(4)
-        m1.metric("Cumulative Return", f"{cur_step_data['cumulative_reward']:.1f}")
-        m2.metric("Compromised Hosts", f"{cur_step_data['compromised_count']} / 13")
-        m3.metric("Scanned Hosts", f"{cur_step_data['scanned_count']} / 13")
-        m4.metric("Restored Hosts", f"{cur_step_data['restored_count']} / 13")
-
-        # Live Reward & Compromise curves
-        steps_range = list(range(step_idx + 1))
-        cum_rewards = [steps[s]["cumulative_reward"] for s in steps_range]
-        comp_counts = [steps[s]["compromised_count"] for s in steps_range]
-
-        g1, g2 = st.columns(2)
-        with g1:
-            fig_r = go.Figure()
-            fig_r.add_trace(go.Scatter(x=steps_range, y=cum_rewards, mode='lines+markers', line=dict(color='#1E88E5', width=3)))
-            fig_r.update_layout(title="Live Cumulative Defender Return", xaxis_title="Step", yaxis_title="Cumulative Return", height=240, margin=dict(l=10,r=10,t=35,b=10))
-            st.plotly_chart(fig_r, use_container_width=True)
-            
-        with g2:
-            fig_c = go.Figure()
-            fig_c.add_trace(go.Scatter(x=steps_range, y=comp_counts, mode='lines+markers', line=dict(color='#D32F2F', width=3)))
-            fig_c.update_layout(title="Compromised Hosts Over Time", xaxis_title="Step", yaxis_title="Host Count", height=240, margin=dict(l=10,r=10,t=35,b=10))
-            st.plotly_chart(fig_c, use_container_width=True)
-
-# ==============================================================================
-# TAB 2: COMPARE (SIDE-BY-SIDE REPLAY ON SAME SEED)
-# ==============================================================================
 with tab_compare:
-    st.subheader("⚖️ Side-by-Side Agent Replay (Same Seed & Same Attack)")
-    st.caption("Directly compare how two different architectures react to identical adversarial attacks.")
-    
-    cmp_col1, cmp_col2, cmp_col3 = st.columns([1.5, 1.5, 1.0])
-    with cmp_col1:
-        cmp_agent_a = st.selectbox("Baseline Agent (Left)", ["Random", "Sleep", "RuleBased"], index=0)
-    with cmp_col2:
-        cmp_agent_b = st.selectbox("Trained RL Architecture (Right)", ["MAPPO+LLM", "MAPPO", "RuleBased"], index=0)
-    with cmp_col3:
-        cmp_seed = st.selectbox("Shared Seed", [42, 101, 777], key="cmp_seed")
-        
-    data_a = load_episode_data(cmp_agent_a, "B_line", cmp_seed)
-    data_b = load_episode_data(cmp_agent_b, "B_line", cmp_seed)
-    
-    if data_a and data_b:
-        max_cmp_steps = min(len(data_a["steps"]), len(data_b["steps"]))
-        cmp_step = st.slider("Scrub Comparison Step", 0, max_cmp_steps - 1, max_cmp_steps // 2, key="cmp_slider")
-        
-        step_a = data_a["steps"][cmp_step]
-        step_b = data_b["steps"][cmp_step]
-        
-        # Summary Banner
-        s_left, s_right = st.columns(2)
-        with s_left:
-            st.info(f"**{cmp_agent_a}** | Return: {step_a['cumulative_reward']:.1f} | Compromised: {step_a['compromised_count']} | Restored: {step_a['restored_count']}")
-            fig_a = build_network_graph(step_a["host_status"], title=f"{cmp_agent_a} Network State (Step {cmp_step})")
-            st.plotly_chart(fig_a, use_container_width=True)
-            
-        with s_right:
-            st.success(f"**{cmp_agent_b}** | Return: {step_b['cumulative_reward']:.1f} | Compromised: {step_b['compromised_count']} | Restored: {step_b['restored_count']}")
-            fig_b = build_network_graph(step_b["host_status"], title=f"{cmp_agent_b} Network State (Step {cmp_step})")
-            st.plotly_chart(fig_b, use_container_width=True)
-
-# ==============================================================================
-# TAB 3: TRAINING CONVERGENCE
-# ==============================================================================
-with tab_train:
-    st.subheader("📈 Multi-Seed Learning Curves & Empirical Work")
-    st.markdown("Empirical training curves comparing **PPO vs Independent PPO (IPPO) vs MAPPO (Centralized Critic)**.")
-    
-    # Load Real CSV Data from results/
-    training_csv = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results", "mappo_training_seed_42.csv")
-    if os.path.exists(training_csv):
-        df_train = pd.read_csv(training_csv)
-        
-        tr_c1, tr_c2 = st.columns([1.2, 1.0])
-        with tr_c1:
-            fig_ret = go.Figure()
-            fig_ret.add_trace(go.Scatter(x=df_train["Episode"], y=df_train["Team_Return"], mode='lines+markers', name='MAPPO Team Return', line=dict(color='#0D47A1', width=3)))
-            fig_ret.add_trace(go.Scatter(x=df_train["Episode"], y=df_train["Agent_0_Return"], mode='lines', name='User Subnet Agent', line=dict(dash='dot', color='#2E7D32')))
-            fig_ret.add_trace(go.Scatter(x=df_train["Episode"], y=df_train["Agent_1_Return"], mode='lines', name='Enterprise Server Agent', line=dict(dash='dot', color='#F57F17')))
-            fig_ret.add_trace(go.Scatter(x=df_train["Episode"], y=df_train["Agent_2_Return"], mode='lines', name='Operational DC Agent', line=dict(dash='dot', color='#D32F2F')))
-            fig_ret.update_layout(title="MAPPO Multi-Subnet Learning Curve (Seed 42)", xaxis_title="Episode", yaxis_title="Return", height=350)
-            st.plotly_chart(fig_ret, use_container_width=True)
-            
-        with tr_c2:
-            fig_loss = go.Figure()
-            fig_loss.add_trace(go.Scatter(x=df_train["Episode"], y=df_train["Actor_Loss"], mode='lines', name='Actor Loss (PPO Clip)', line=dict(color='#7B1FA2')))
-            fig_loss.add_trace(go.Scatter(x=df_train["Episode"], y=df_train["Critic_Loss"], mode='lines', name='Critic Loss (MSE)', line=dict(color='#C2185B')))
-            fig_loss.update_layout(title="Actor & Centralized Critic Losses", xaxis_title="Episode", yaxis_title="Loss Value", height=350)
-            st.plotly_chart(fig_loss, use_container_width=True)
+    st.subheader("Compare saved CC4 replays")
+    if len(catalog) < 2:
+        show_empty("At least two saved CC4 episode files are required for comparison.")
     else:
-        st.warning("Training log results/mappo_training_seed_42.csv not found.")
+        left_meta, left_episode = replay_selector(catalog, "compare_left")
+        right_meta, right_episode = replay_selector(catalog, "compare_right")
+        if left_episode and right_episode:
+            same_seed = (
+                left_meta.iloc[0]["seed"] == right_meta.iloc[0]["seed"]
+                and left_meta.iloc[0]["red"] == right_meta.iloc[0]["red"]
+            )
+            if not same_seed:
+                st.warning("These files do not use the same seed and red policy.")
+            limit = min(len(left_episode["steps"]), len(right_episode["steps"]))
+            compare_step = st.slider("Comparison step", 0, max(limit - 1, 0), 0, key="compare_step")
+            columns = st.columns(2)
+            for side, (column, meta, data) in enumerate(
+                zip(columns, [left_meta, right_meta], [left_episode, right_episode])
+            ):
+                item = data["steps"][compare_step]
+                with column:
+                    st.markdown(
+                        f"**{meta.iloc[0]['agent']}**, seed `{meta.iloc[0]['seed']}`  \n"
+                        f"Reward: `{item.get('cumulative_reward', 0):.1f}`"
+                    )
+                    st.plotly_chart(
+                        build_zone_graph(item.get("host_state", {})),
+                        use_container_width=True,
+                    )
+                    render_zone_detail(
+                        item.get("host_state", {}),
+                        f"compare_zone_{side}_{meta.iloc[0]['agent']}",
+                    )
 
-# ==============================================================================
-# TAB 4: LLM ORCHESTRATOR
-# ==============================================================================
+    st.markdown("---")
+    st.subheader("Paired scoreboard versus Sleep")
+    st.markdown("**Baseline context**")
+    baselines = baseline_summary()
+    if not baselines.empty:
+        st.dataframe(
+            baselines[["agent", "mean_reward", "std_reward"]].style.format(
+                {"mean_reward": "{:.1f}", "std_reward": "{:.1f}"}
+            ),
+            hide_index=True,
+            use_container_width=True,
+        )
+    scoreboard = paired_scoreboard()
+    if scoreboard.empty:
+        show_empty(
+            "Paired episode returns are not available yet. Generate "
+            "results/tables/heldout_episode_returns.csv before making confidence-interval claims."
+        )
+    else:
+        st.dataframe(
+            scoreboard.style.format(
+                {
+                    "mean_difference_vs_sleep": "{:.1f}",
+                    "ci95_low": "{:.1f}",
+                    "ci95_high": "{:.1f}",
+                }
+            ),
+            hide_index=True,
+            use_container_width=True,
+        )
+        st.caption(
+            "Difference is agent return minus Sleep return on the same evaluation seed; "
+            "the interval is a normal-approximation 95% CI over paired episodes."
+        )
+
+with tab_train:
+    st.subheader("Multi-seed training evidence")
+    train = training_catalog()
+    if train.empty:
+        show_empty("No training CSVs found under results/training/.")
+    else:
+        algorithms = sorted(train["algo"].dropna().unique())
+        selected_algorithms = st.multiselect("Algorithms", algorithms, default=algorithms)
+        visible = train[train["algo"].isin(selected_algorithms)]
+        figure = go.Figure()
+        for algo in selected_algorithms:
+            subset = visible[visible["algo"] == algo]
+            grouped = subset.groupby("env_steps")["return"].agg(["mean", "std"]).reset_index()
+            grouped["std"] = grouped["std"].fillna(0)
+            figure.add_trace(
+                go.Scatter(
+                    x=grouped["env_steps"],
+                    y=grouped["mean"],
+                    mode="lines",
+                    name=f"{algo.upper()} mean",
+                )
+            )
+            figure.add_trace(
+                go.Scatter(
+                    x=grouped["env_steps"],
+                    y=grouped["mean"] + grouped["std"],
+                    mode="lines",
+                    line={"width": 0},
+                    showlegend=False,
+                    hoverinfo="skip",
+                )
+            )
+            figure.add_trace(
+                go.Scatter(
+                    x=grouped["env_steps"],
+                    y=grouped["mean"] - grouped["std"],
+                    mode="lines",
+                    fill="tonexty",
+                    line={"width": 0},
+                    name=f"{algo.upper()} ± std",
+                )
+            )
+        figure.update_layout(
+            title="Training return by environment steps",
+            xaxis_title="Environment steps",
+            yaxis_title="Episode return",
+            height=430,
+        )
+        st.plotly_chart(figure, use_container_width=True)
+        st.dataframe(
+            visible.groupby("algo").agg(
+                seeds=("seed", "nunique"),
+                final_return=("return", "last"),
+                max_env_steps=("env_steps", "max"),
+            ),
+            use_container_width=True,
+        )
+
 with tab_llm:
-    st.subheader("🧠 LLM Orchestration & Incident Response Feed")
-    st.markdown("Visualizes out-of-loop LLM strategic guidance: state summarization, Pydantic JSON schema validation, and SOC incident reports.")
-    
-    # Load step 10 from MAPPO+LLM
-    llm_ep = load_episode_data("MAPPO+LLM", "B_line", 42)
-    if llm_ep:
-        step_select = st.slider("Select Incident Step", 0, len(llm_ep["steps"]) - 1, 10, key="llm_step_slider")
-        target_step = llm_ep["steps"][step_select]
-        llm_data = target_step.get("llm_insights")
-        
-        c_sum, c_json = st.columns([1.1, 1.2])
-        
-        with c_sum:
-            st.markdown("#### 1. Summarized Telemetry Provided to LLM")
-            comp_h = [h for h, s in target_step["host_status"].items() if s == "Compromised"]
-            scan_h = [h for h, s in target_step["host_status"].items() if s == "Scanned"]
-            st.code(f"""
-[STEP {step_select} TACTICAL STATE]
-- Active Compromises: {comp_h}
-- Scanned / Probed:   {scan_h}
-- Last Red Action:    {target_step['red_action']}
-- Blue Proposals:     {target_step['blue_actions']}
-            """, language="yaml")
-            
-            st.markdown("#### 2. Quantitative Performance & Costs")
-            if llm_data:
-                lat = llm_data.get("latency_ms", 120.0)
-                cost = llm_data.get("token_cost_usd", 0.00018)
-                st.metric("Inference Latency", f"{lat:.1f} ms")
-                st.metric("API Token Cost", f"${cost:.6f}")
-                
-        with c_json:
-            st.markdown("#### 3. Validated JSON Schema Output (`llm/schema.py`)")
-            if llm_data:
-                st.json(llm_data)
-                inc_report = llm_data.get("incident_report", {})
-                st.info(f"**Executive Incident Summary**: {inc_report.get('executive_summary', 'N/A')}\n\n**Kill Chain Phase**: `{inc_report.get('kill_chain_stage', 'Unknown')}`")
-            else:
-                st.write("No LLM insights recorded for this step.")
+    st.subheader("Measured LLM advisory evidence")
+    summary = csv_table("advisory_summary.csv")
+    calls = csv_table("advisory_calls.csv")
+    episodes = csv_table("advisory_episodes.csv")
+    if summary.empty:
+        show_empty("No advisory summary found under results/tables/.")
+    else:
+        row = summary.iloc[0]
+        st.caption(
+            f"Model `{row.get('model', 'unknown')}` | prompt `{row.get('prompt_version', 'unknown')}` | "
+            f"checkpoint `{row.get('checkpoint', 'unknown')}`"
+        )
+        metrics = st.columns(5)
+        metrics[0].metric("Fresh Gemini calls", int(row.get("calls_gemini", 0)))
+        metrics[1].metric("Fallback rate", f"{100 * float(row.get('fallback_rate', 0)):.1f}%")
+        metrics[2].metric("Mean latency", f"{float(row.get('gemini_mean_latency_ms', 0)):.0f} ms")
+        metrics[3].metric("Total cost", f"${float(row.get('gemini_total_cost_usd', 0)):.4f}")
+        metrics[4].metric("Identical returns", f"{int(row.get('episodes_identical_return', 0))}/{int(row.get('episodes', 0))}")
+        st.info("Advisory mode: it does not change actions.")
+        report_step = st.selectbox(
+            "Incident report step",
+            sorted(calls["step"].unique().tolist()) if not calls.empty else [40],
+            index=(
+                sorted(calls["step"].unique().tolist()).index(40)
+                if not calls.empty and 40 in calls["step"].unique()
+                else 0
+            ),
+            key="incident_report_step",
+        )
+        advisory_step = load_advisory_step(int(report_step))
+        if advisory_step:
+            result = advisory_step["result"]
+            report = result.get("advice", {}).get("incident_report", {})
+            st.markdown("#### Incident report")
+            st.markdown(f"**Executive summary:** {report.get('executive_summary', 'No report')}")
+            st.markdown(f"**Kill-chain stage:** `{report.get('kill_chain_stage', 'unknown')}`")
+            st.markdown("**Recommended remediation:**")
+            for action in report.get("mitigation_actions", []):
+                st.markdown(f"- {action}")
+            st.caption(
+                f"Source `{result.get('source')}` | measured latency "
+                f"`{result.get('latency_ms', 0):.0f} ms` | measured cost "
+                f"`${result.get('cost_usd', 0):.6f}`"
+            )
+        if not calls.empty:
+            st.plotly_chart(
+                go.Figure(
+                    go.Scatter(
+                        x=calls["step"],
+                        y=calls["latency_ms"],
+                        mode="markers",
+                        marker={"color": calls["source"].map({"gemini": "#2e7d32", "cache": "#1565c0", "fallback": "#d32f2f"}).fillna("#78909c")},
+                        text=calls["source"],
+                    )
+                ).update_layout(title="Measured advisory latency by CC4 step", xaxis_title="Step", yaxis_title="Latency (ms)"),
+                use_container_width=True,
+            )
+            st.dataframe(calls, use_container_width=True)
+        if not episodes.empty:
+            with st.expander("Advisory episode checks"):
+                st.dataframe(episodes, use_container_width=True)
 
-# ==============================================================================
-# TAB 5: ARCHITECTURE & THEORY
-# ==============================================================================
 with tab_arch:
-    st.subheader("🏛️ Theoretical Framing & Algorithm Specifications")
-    st.markdown("Academic theoretical formulation grounded in **Nguyen & Reddi (IEEE TNNLS 2023)** and **CAGE Challenge 2 & 4**.")
-    
-    st.markdown("### 1. Dec-POMDP Mathematical Model")
-    st.latex(r"\mathcal{M} = \langle \mathcal{N}, \mathcal{S}, \{\mathcal{A}_i\}_{i \in \mathcal{N}}, \mathcal{P}, \{r_i\}_{i \in \mathcal{N}}, \{\Omega_i\}_{i \in \mathcal{N}}, \{\mathcal{O}_i\}_{i \in \mathcal{N}}, \gamma \rangle")
-    
-    st.markdown("""
-    - **$\mathcal{N} = \{1, 2, 3\}$**: 3 Subnet Defender Agents (User Subnet, Enterprise Server Subnet, Operational DC Subnet).
-    - **$\Omega_i$**: Partial local observations received by Agent $i$ (16-dim localized host telemetry).
-    - **$\mathcal{S}$**: Global network state ($\mathbf{s} \in \mathbb{R}^{52}$) accessible only by the Centralized Critic during training.
-    """)
-    
-    st.markdown("### 2. Multi-Agent PPO (MAPPO) Objective Functions")
-    st.latex(r"L_{\text{CLIP}}(\theta_i) = \hat{\mathbb{E}}_t \left[ \min\left( \rho_{i,t}(\theta_i) \hat{A}_t, \, \text{clip}(\rho_{i,t}(\theta_i), 1-\epsilon, 1+\epsilon) \hat{A}_t \right) + \beta \mathcal{H}(\pi_{\theta_i}) \right]")
-    st.latex(r"L_{\text{Value}}(\phi) = \hat{\mathbb{E}}_t \left[ (V_\phi(\mathbf{s}_t) - R_t)^2 \right]")
-    
-    st.markdown("### 3. Decoupled Out-of-Loop LLM Orchestration Principle")
-    st.markdown("""
-    - **Inside RL Loop**: High-frequency, deterministic tactical defense actions executed by decentralized MAPPO actor networks $\pi_{\theta_i}(a_i \mid o_i)$ at sub-millisecond speeds.
-    - **Outside RL Loop**: Strategic reasoning, cross-subnet conflict mitigation, priority score ranking, and natural-language SOC incident reporting generated asynchronously via Google Gemini with strict Pydantic JSON schema validation.
-    """)
+    st.subheader("CC4 system architecture")
+    st.markdown(
+        """
+        **CC4 environment:** five Blue agents act from local observations against a
+        `FiniteStateRedAgent` in a randomized enterprise topology. IPPO and MAPPO
+        execute tactical actions; the LLM is an out-of-loop advisory layer.
+
+        **Evidence boundary:** every replay, reward, host state, latency, token
+        count, and cost shown here comes from a saved file under `results/`.
+        Advisory mode records guidance and validates it, but does not alter RL
+        actions; equal RL-only and advisory returns are therefore an integrity check,
+        not an improvement claim.
+        """
+    )
+    st.latex(
+        r"\mathcal{M}=\langle\mathcal{N},\mathcal{S},\{\mathcal{A}_i\},"
+        r"\mathcal{P},\{r_i\},\{\Omega_i\},\{\mathcal{O}_i\},\gamma\rangle"
+    )
+    st.markdown(
+        """
+        - **IPPO:** independent policies for decentralized tactical execution.
+        - **MAPPO:** decentralized actors with a centralized critic during training.
+        - **LLM advisory:** summarizes telemetry and proposed actions, then returns
+          schema-validated priorities and an incident report.
+        """
+    )

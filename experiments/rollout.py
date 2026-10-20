@@ -11,6 +11,8 @@ import os
 import subprocess
 import sys
 
+import numpy as np
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from agents.baselines import RandomPolicy, RuleBasedPolicy, SleepPolicy
@@ -22,6 +24,46 @@ POLICIES = {
     "Random": lambda seed: RandomPolicy(seed),
     "RuleBased": lambda seed: RuleBasedPolicy(),
 }
+
+
+def load_rl_policy(agent_name: str, checkpoint: str, seed: int, env, steps: int):
+    """Return an action function for a saved IPPO or MAPPO checkpoint."""
+    names = sorted(env.agents)
+    if agent_name == "IPPO":
+        from sb3_contrib import MaskablePPO
+
+        model = MaskablePPO.load(checkpoint, device="cpu")
+
+        def act(observation, info):
+            return {
+                name: int(model.predict(
+                    observation[name],
+                    action_masks=np.asarray(info[name]["action_mask"], dtype=bool),
+                    deterministic=True,
+                )[0])
+                for name in names
+            }
+
+        return act
+
+    if agent_name == "MAPPO":
+        from agents.mappo import MAPPOAgent
+
+        probe_obs, probe_info = env.reset(seed=seed)
+        obs_dim = len(probe_obs[names[0]])
+        act_dim = len(probe_info[names[0]]["action_mask"])
+        model = MAPPOAgent(len(names), obs_dim, act_dim, seed=seed)
+        model.load(checkpoint)
+
+        def act(observation, info):
+            obs_array = np.stack([observation[name] for name in names])
+            mask_array = np.stack([info[name]["action_mask"] for name in names])
+            actions, _, _ = model.act(obs_array, mask_array, greedy=True)
+            return {name: int(actions[index]) for index, name in enumerate(names)}
+
+        return act
+
+    raise ValueError(f"unsupported checkpoint agent {agent_name!r}")
 
 
 def git_commit() -> str:
@@ -58,11 +100,29 @@ def snapshot_hosts(env, red_agents) -> dict:
     return hosts
 
 
-def run_episode(agent_name: str, seed: int, steps: int, red: str) -> dict:
+def run_episode(
+    agent_name: str,
+    seed: int,
+    steps: int,
+    red: str,
+    checkpoint: str | None = None,
+) -> dict:
     env = make_env(seed=seed, steps=steps, red=red)
     observation, info = env.reset(seed=seed)
-    policy = POLICIES[agent_name](seed)
-    policy.reset()
+    if checkpoint:
+        action_fn = load_rl_policy(agent_name, checkpoint, seed, env, steps)
+    else:
+        policy = POLICIES[agent_name](seed)
+        policy.reset()
+
+        def action_fn(observation, info):
+            return {
+                agent: policy.action(
+                    agent, observation[agent], env.action_labels(agent),
+                    info[agent]["action_mask"]
+                )
+                for agent in env.agents
+            }
 
     # Same red-agent discovery as experiments/smoke_test.py
     red_agents = sorted(
@@ -72,11 +132,7 @@ def run_episode(agent_name: str, seed: int, steps: int, red: str) -> dict:
     log, cumulative, step = [], 0.0, 0
 
     while True:
-        actions = {
-            a: policy.action(a, observation[a], env.action_labels(a),
-                             info[a]["action_mask"])
-            for a in env.agents
-        }
+        actions = action_fn(observation, info)
         observation, rewards, terminated, truncated, info = env.step(actions)
         reward = team_reward(rewards)
         cumulative += reward
@@ -108,7 +164,8 @@ def run_episode(agent_name: str, seed: int, steps: int, red: str) -> dict:
 
 def main() -> None:
     p = argparse.ArgumentParser(description="Save real CC4 episode logs")
-    p.add_argument("--agent", choices=sorted(POLICIES), required=True)
+    p.add_argument("--agent", choices=sorted(POLICIES) + ["IPPO", "MAPPO"], required=True)
+    p.add_argument("--checkpoint", help="Saved IPPO .zip or MAPPO .pt checkpoint")
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--episodes", type=int, default=1)
     p.add_argument("--steps", type=int, default=100)
@@ -119,7 +176,7 @@ def main() -> None:
     os.makedirs(args.output_dir, exist_ok=True)
     for ep in range(args.episodes):
         ep_seed = args.seed + ep  # same seeding as run_baselines.py
-        data = run_episode(args.agent, ep_seed, args.steps, args.red)
+        data = run_episode(args.agent, ep_seed, args.steps, args.red, args.checkpoint)
         name = f"episode_{args.agent}_{args.red}_seed{ep_seed}.json"
         with open(os.path.join(args.output_dir, name), "w") as f:
             json.dump(data, f, indent=2)
