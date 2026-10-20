@@ -1,0 +1,174 @@
+{
+  "summary": {
+    "step": 80,
+    "mission_phase": "MissionB",
+    "total_alerting_hosts": 1,
+    "agents": [
+      {
+        "agent": "blue_agent_0",
+        "zones": [
+          {
+            "zone": "restricted_zone_a_subnet",
+            "hosts_present": 15,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": [
+          "[DeployDecoy restricted_zone_a_subnet_user_host_7]",
+          "[Sleep]",
+          "[DeployDecoy restricted_zone_a_subnet_user_host_7]"
+        ]
+      },
+      {
+        "agent": "blue_agent_1",
+        "zones": [
+          {
+            "zone": "operational_zone_a_subnet",
+            "hosts_present": 13,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": [
+          "[DeployDecoy operational_zone_a_subnet_user_host_7]",
+          "[Sleep]",
+          "[DeployDecoy operational_zone_a_subnet_user_host_7]"
+        ]
+      },
+      {
+        "agent": "blue_agent_2",
+        "zones": [
+          {
+            "zone": "restricted_zone_b_subnet",
+            "hosts_present": 13,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": [
+          "[DeployDecoy restricted_zone_b_subnet_user_host_7]",
+          "[Sleep]",
+          "[DeployDecoy restricted_zone_b_subnet_user_host_7]"
+        ]
+      },
+      {
+        "agent": "blue_agent_3",
+        "zones": [
+          {
+            "zone": "operational_zone_b_subnet",
+            "hosts_present": 10,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": [
+          "[DeployDecoy operational_zone_b_subnet_user_host_7]",
+          "[Sleep]",
+          "[DeployDecoy operational_zone_b_subnet_user_host_7]"
+        ]
+      },
+      {
+        "agent": "blue_agent_4",
+        "zones": [
+          {
+            "zone": "admin_network_subnet",
+            "hosts_present": 9,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          },
+          {
+            "zone": "office_network_subnet",
+            "hosts_present": 13,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          },
+          {
+            "zone": "public_access_zone_subnet",
+            "hosts_present": 9,
+            "hosts_alerting": 1,
+            "alert_hosts": [
+              "public_access_zone_subnet_server_host_0:process+connection"
+            ],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": [
+          "[Sleep]",
+          "[Sleep]",
+          "[Remove office_network_subnet_user_host_8]"
+        ]
+      }
+    ]
+  },
+  "proposals": {
+    "blue_agent_0": "DeployDecoy restricted_zone_a_subnet_user_host_7",
+    "blue_agent_1": "DeployDecoy operational_zone_a_subnet_user_host_7",
+    "blue_agent_2": "DeployDecoy restricted_zone_b_subnet_user_host_7",
+    "blue_agent_3": "DeployDecoy operational_zone_b_subnet_user_host_7",
+    "blue_agent_4": "Remove office_network_subnet_user_host_8"
+  },
+  "result": {
+    "step": 80,
+    "source": "gemini",
+    "advice": {
+      "priorities": [
+        {
+          "zone": "public_access_zone_subnet",
+          "priority_score": 0.8,
+          "reasoning": "Host public_access_zone_subnet_server_host_0 is showing process and network alerts."
+        },
+        {
+          "zone": "admin_network_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts observed, maintaining routine monitoring."
+        },
+        {
+          "zone": "office_network_subnet",
+          "priority_score": 0.1,
+          "reasoning": "No alerts observed, maintaining routine monitoring."
+        },
+        {
+          "zone": "restricted_zone_a_subnet",
+          "priority_score": 0.0,
+          "reasoning": "No alerts observed."
+        },
+        {
+          "zone": "operational_zone_a_subnet",
+          "priority_score": 0.0,
+          "reasoning": "No alerts observed."
+        }
+      ],
+      "conflicts": [],
+      "incident_report": {
+        "executive_summary": "At step 80, a single alert is present on public_access_zone_subnet_server_host_0 involving unexpected processes and connections. All other zones are currently quiet.",
+        "kill_chain_stage": "Initial Access",
+        "mitigation_actions": [
+          "Investigate suspicious processes on public_access_zone_subnet_server_host_0.",
+          "Inspect network connections originating from public_access_zone_subnet_server_host_0.",
+          "Review access logs for public access services.",
+          "Isolate the alerting host if malicious activity is confirmed.",
+          "Continue deploying decoys across internal subnets to detect lateral movement."
+        ]
+      }
+    },
+    "model": "gemini-3.5-flash-lite",
+    "prompt_version": "cc4-v1",
+    "cache_key": "239439f95415b2979698bff2c4668f55e8fd279aedc128d670f1d30af6bd44e2",
+    "latency_ms": 2657.5654159987607,
+    "total_wall_ms": 38820.44295800006,
+    "attempts": 4,
+    "input_tokens": 1009,
+    "output_tokens": 424,
+    "cost_usd": 0.0013627000000000001,
+    "origin_latency_ms": null,
+    "origin_cost_usd": null,
+    "error": null
+  }
+}
