@@ -41,7 +41,8 @@ from stable_baselines3.common.callbacks import BaseCallback
 
 from envs.cc4_env import make_env
 from experiments.rl_common import (DEFAULT_EVAL_SEED_BASE, EPISODES_PER_UPDATE, RED,
-                                   REWARD_SCALE, checkpoint_path, plan_seeds, save_run)
+                                   REWARD_SCALE, checkpoint_path, plan_seeds, save_run,
+                                   team_reward)
 
 N_EPOCHS = 4
 MINIBATCH_TIMESTEPS = 80  # same minibatch as MAPPO: 80 timesteps x 5 agents = 400 samples
@@ -70,7 +71,7 @@ class TrainingShim(ParallelEnv):
     def step(self, actions):
         obs, rewards, terminated, truncated, info = self.env.step(actions)
         self.env_steps += 1
-        self.ep_return += float(sum(rewards.values()))  # same convention as the baselines
+        self.ep_return += team_reward(rewards)
         if truncated.get("__all__", False) or any(terminated.values()):
             self.episodes.append({
                 "episode": len(self.episodes) + 1, "episode_seed": self.episode_seed,
@@ -164,7 +165,7 @@ def evaluate(model: MaskablePPO, seeds: list, steps: int) -> list:
                 action, _ = model.predict(obs[a], action_masks=mask, deterministic=True)
                 actions[a] = int(action)
             obs, rewards, term, trunc, info = env.step(actions)
-            total += float(sum(rewards.values()))
+            total += team_reward(rewards)
             if trunc.get("__all__", False) or any(term.values()):
                 break
         returns.append(total)

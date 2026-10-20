@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 from agents.baselines import RandomPolicy, RuleBasedPolicy, SleepPolicy
 from envs.cc4_env import make_env
+from experiments.rl_common import team_reward
 
 
 PolicyFactory = Callable[[int], object]
@@ -39,7 +40,7 @@ def _run_episode(seed: int, policy: object, steps: int) -> float:
             for agent in env.agents
         }
         observation, rewards, terminated, truncated, info = env.step(actions)
-        total_reward += float(np.mean(list(rewards.values())))
+        total_reward += team_reward(rewards)
         if truncated.get("__all__", False) or any(terminated.values()):
             return total_reward
 

@@ -15,6 +15,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 from agents.baselines import RandomPolicy, RuleBasedPolicy, SleepPolicy
 from envs.cc4_env import make_env
+from experiments.rl_common import team_reward
 
 POLICIES = {
     "Sleep": lambda seed: SleepPolicy(),
@@ -77,8 +78,7 @@ def run_episode(agent_name: str, seed: int, steps: int, red: str) -> dict:
             for a in env.agents
         }
         observation, rewards, terminated, truncated, info = env.step(actions)
-        # Same convention as run_baselines.py so totals stay comparable
-        reward = float(sum(rewards.values()))
+        reward = team_reward(rewards)
         cumulative += reward
         log.append({
             "step": step,

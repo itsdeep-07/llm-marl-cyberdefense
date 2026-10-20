@@ -20,7 +20,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 from agents.mappo import MAPPOAgent
 from experiments.rl_common import (DEFAULT_EVAL_SEED_BASE, EPISODES_PER_UPDATE, RED,
-                                   REWARD_SCALE, checkpoint_path, plan_seeds, save_run)
+                                   REWARD_SCALE, checkpoint_path, plan_seeds, save_run,
+                                   team_reward)
 
 
 def _stack(env_out: dict, names: list, key=None) -> np.ndarray:
@@ -44,7 +45,7 @@ def run_episode(env_factory, agent: MAPPOAgent, env_seed: int, steps: int,
         obs, rewards, term, trunc, info = env.step(
             {a: int(actions[i]) for i, a in enumerate(names)}
         )
-        team_return += float(sum(rewards.values()))
+        team_return += team_reward(rewards)
         n_steps += 1
         if record:
             buf["obs"].append(obs_arr)

@@ -9,6 +9,7 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from envs.cc4_env import make_env
+from experiments.rl_common import team_reward
 
 
 def run_smoke_test(seed: int, episodes: int, steps: int) -> None:
@@ -28,7 +29,7 @@ def run_smoke_test(seed: int, episodes: int, steps: int) -> None:
         for step in range(steps):
             actions = {agent: 0 for agent in env.agents}
             _, rewards, terminated, truncated, _ = env.step(actions)
-            total_reward += sum(rewards.values())
+            total_reward += team_reward(rewards)
             red_activity = {
                 agent: str(env.env.get_last_action(agent)) for agent in red_agents
             }

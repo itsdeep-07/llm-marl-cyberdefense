@@ -24,6 +24,13 @@ TRAIN_COLUMNS = ["algo", "seed", "episode", "episode_seed", "env_steps", "return
                  "wall_time_s", "policy_loss", "value_loss", "entropy"]
 
 
+def team_reward(rewards: dict) -> float:
+    """Aggregate one environment step as the mean reward across Blue agents."""
+    if not rewards:
+        raise ValueError("cannot aggregate an empty reward mapping")
+    return float(np.mean(list(rewards.values())))
+
+
 def plan_seeds(seed: int, total_steps: int, steps: int, eval_episodes: int,
                eval_seed_base: int):
     """Return (n_train_episodes, training_seeds, evaluation_seeds), failing loudly on bad input."""
