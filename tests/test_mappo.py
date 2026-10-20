@@ -122,8 +122,8 @@ def test_training_loop_learns_on_mock_env(tmp_path):
     summary = train_one(7, total_steps=6000, steps=20, eval_episodes=10,
                         eval_seed_base=9_000_000, out_dir=str(tmp_path),
                         env_factory=mock_factory, hyper=hyper)
-    per_step_per_agent = summary["mean_reward"] / (20 * N_AGENTS)
-    assert per_step_per_agent > 0.6, per_step_per_agent  # random valid actions score ~0.3-0.4
+    per_step = summary["mean_reward"] / 20
+    assert per_step > 0.6, per_step  # random valid actions score ~0.3-0.4
     for name in ("training/mappo_seed7_train.csv", "tables/rl_eval_mappo_seed7.csv",
                  "tables/rl_eval_episodes_mappo_seed7.csv", "checkpoints/mappo_seed7.pt"):
         assert os.path.exists(os.path.join(tmp_path, name)), name
