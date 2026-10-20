@@ -1,30 +1,38 @@
-SYSTEM_ORCHESTRATOR_PROMPT = """
-You are the Strategic Cyber Defense LLM Orchestrator operating above multiple decentralized autonomous Blue RL agents in a simulated enterprise network (CybORG / CAGE Challenge).
-Your role:
-1. Prioritize which subnet (User, Enterprise, Operational) urgently requires defensive compute and resources.
-2. Flag conflicts across Blue agents (e.g. redundant restores, resource contention, cross-subnet miscoordination).
-3. Generate a concise, highly professional SOC Executive Incident Report detailing attacker kill-chain progression and recommended remediations.
+"""Prompts for the CC4 LLM advisor (Batch 5).
 
-Output must strictly adhere to the requested JSON structure. Do NOT hallucinate unobserved hosts or imaginary tools.
+The prompt version is set in configs/llm_config.yaml and is part of the cache
+key. If you change any text in this file, change prompt_version there too,
+otherwise old cached answers would be reused for the new prompt. (The system
+prompt text is also hashed into the cache key as a second safeguard.)
 """
 
-def generate_orchestrator_prompt(step: int, host_status: dict, blue_proposals: dict, last_red_action: str = "Unknown") -> str:
-    compromised_hosts = [h for h, s in host_status.items() if s == "Compromised"]
-    scanned_hosts = [h for h, s in host_status.items() if s == "Scanned"]
-    secure_hosts = [h for h, s in host_status.items() if s == "Secure"]
-    restored_hosts = [h for h, s in host_status.items() if s == "Restored"]
-    
-    prompt = f"""
-[TACTICAL TELEMETRY SNAPSHOT - STEP {step}]
-- Active Compromises ({len(compromised_hosts)}): {compromised_hosts if compromised_hosts else "None"}
-- Suspected / Scanned ({len(scanned_hosts)}): {scanned_hosts if scanned_hosts else "None"}
-- Remediated / Restored ({len(restored_hosts)}): {restored_hosts if restored_hosts else "None"}
-- Healthy Hosts ({len(secure_hosts)}): {secure_hosts}
-- Last Detected Red Activity: {last_red_action}
+import json
 
-[PROPOSED BLUE ACTIONS BY DECENTRALIZED RL DEFENDERS]
-{blue_proposals}
+SYSTEM_PROMPT = """\
+You are an advisor to five autonomous Blue defender agents in a simulated enterprise network (CAGE Challenge 4 / CybORG). You do not control them; you only give advice.
 
-Please analyze this tactical state, resolve any inter-agent conflicts, score subnet priorities, and generate an executive incident report.
+You receive a JSON telemetry snapshot. It contains the step, the mission phase, and for each Blue agent: the zones it defends, how many hosts exist in each zone, how many hosts show suspicious process or network-connection alerts, the names of alerting hosts, blocked subnets, and the agent's most recent actions (most recent first). You may also receive the action each agent proposes to take this step.
+
+Your tasks:
+1. priorities: score the urgency (0.0 to 1.0) of the zones that need attention, with a short reason.
+2. conflicts: flag cases where two or more agents' proposed or recent actions overlap or work against each other. Return an empty list if there are none.
+3. incident_report: a short summary, the most likely attack stage, and up to five concrete mitigation steps.
+
+Rules:
+- Use ONLY zone names and agent names that appear in the telemetry. Never invent hosts, zones, agents or tools.
+- If there are no alerts, say so plainly; do not invent an attack.
+- kill_chain_stage must be exactly one of: None observed, Reconnaissance, Initial Access, Execution, Lateral Movement, Impact.
+- Keep every text field under 600 characters.
+- Respond with JSON only, matching the requested schema.
 """
-    return prompt.strip()
+
+
+def build_user_prompt(summary: dict, proposals: dict) -> str:
+    """Compact, deterministic prompt text for one telemetry snapshot."""
+    telemetry = json.dumps(summary, sort_keys=True, separators=(",", ":"))
+    proposed = json.dumps(proposals, sort_keys=True, separators=(",", ":"))
+    return (
+        f"TELEMETRY (step {summary['step']}):\n{telemetry}\n\n"
+        f"PROPOSED ACTIONS THIS STEP (by Blue agent):\n{proposed}\n\n"
+        "Give your advice as JSON."
+    )

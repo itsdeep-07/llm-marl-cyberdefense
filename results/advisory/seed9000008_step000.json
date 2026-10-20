@@ -1,0 +1,137 @@
+{
+  "summary": {
+    "step": 0,
+    "mission_phase": "Preplanning",
+    "total_alerting_hosts": 0,
+    "agents": [
+      {
+        "agent": "blue_agent_0",
+        "zones": [
+          {
+            "zone": "restricted_zone_a_subnet",
+            "hosts_present": 5,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": []
+      },
+      {
+        "agent": "blue_agent_1",
+        "zones": [
+          {
+            "zone": "operational_zone_a_subnet",
+            "hosts_present": 14,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": []
+      },
+      {
+        "agent": "blue_agent_2",
+        "zones": [
+          {
+            "zone": "restricted_zone_b_subnet",
+            "hosts_present": 11,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": []
+      },
+      {
+        "agent": "blue_agent_3",
+        "zones": [
+          {
+            "zone": "operational_zone_b_subnet",
+            "hosts_present": 9,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": []
+      },
+      {
+        "agent": "blue_agent_4",
+        "zones": [
+          {
+            "zone": "admin_network_subnet",
+            "hosts_present": 9,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          },
+          {
+            "zone": "office_network_subnet",
+            "hosts_present": 5,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          },
+          {
+            "zone": "public_access_zone_subnet",
+            "hosts_present": 11,
+            "hosts_alerting": 0,
+            "alert_hosts": [],
+            "blocked_subnets": []
+          }
+        ],
+        "last_actions": []
+      }
+    ]
+  },
+  "proposals": {
+    "blue_agent_0": "DeployDecoy restricted_zone_a_subnet_server_host_0",
+    "blue_agent_1": "DeployDecoy operational_zone_a_subnet_user_host_7",
+    "blue_agent_2": "DeployDecoy restricted_zone_b_subnet_user_host_7",
+    "blue_agent_3": "DeployDecoy operational_zone_b_subnet_server_host_0",
+    "blue_agent_4": "DeployDecoy admin_network_subnet_server_host_2"
+  },
+  "result": {
+    "step": 0,
+    "source": "gemini",
+    "advice": {
+      "priorities": [
+        {
+          "zone": "public_access_zone_subnet",
+          "priority_score": 0.2,
+          "reasoning": "No alerts observed yet, but public-facing zone is the most likely entry point for initial reconnaissance."
+        },
+        {
+          "zone": "admin_network_subnet",
+          "priority_score": 0.2,
+          "reasoning": "High-value administrative zone requiring baseline defenses and monitoring."
+        }
+      ],
+      "conflicts": [],
+      "incident_report": {
+        "executive_summary": "System is at step 0 with preplanning underway. No alerts or suspicious activity have been detected across any zones. Blue agents are actively deploying decoys to harden the network.",
+        "kill_chain_stage": "None observed",
+        "mitigation_actions": [
+          "Continue deploying decoys across critical subnets.",
+          "Monitor public access zone for any incoming reconnaissance.",
+          "Verify integrity of administrative network hosts.",
+          "Establish baseline network traffic logs.",
+          "Ensure all agent action logs are monitored for overlap."
+        ]
+      }
+    },
+    "model": "gemini-3.5-flash-lite",
+    "prompt_version": "cc4-v1",
+    "cache_key": "7708da9f41fbf09a856ddfabf39eeef5421f7118938822c447111fb963542476",
+    "latency_ms": 1868.757166999785,
+    "total_wall_ms": 1868.9198749998468,
+    "attempts": 1,
+    "input_tokens": 804,
+    "output_tokens": 262,
+    "cost_usd": 0.0008962,
+    "origin_latency_ms": null,
+    "origin_cost_usd": null,
+    "error": null
+  }
+}
