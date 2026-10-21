@@ -4,15 +4,20 @@ from __future__ import annotations
 
 from typing import Type
 
-from CybORG import CybORG
-from CybORG.Agents import (
-    EnterpriseGreenAgent,
-    FiniteStateRedAgent,
-    SleepAgent,
-)
-from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
-from CybORG.Agents.Wrappers import BlueFlatWrapper
-from CybORG.Simulator.Scenarios import EnterpriseScenarioGenerator
+try:
+    from CybORG import CybORG
+    from CybORG.Agents import SleepAgent
+    from CybORG.Agents.SimpleAgents.BaseAgent import BaseAgent
+    from CybORG.Agents.Wrappers import BlueFlatWrapper
+    from CybORG.Agents import EnterpriseGreenAgent, FiniteStateRedAgent
+    from CybORG.Simulator.Scenarios import EnterpriseScenarioGenerator
+except ImportError as exc:
+    raise ImportError(
+        "This project requires the CAGE Challenge 4 CybORG package. "
+        "The installed CybORG package does not expose EnterpriseScenarioGenerator, "
+        "EnterpriseGreenAgent, or FiniteStateRedAgent. Install the repository's "
+        "CC4 dependency before starting a live demo."
+    ) from exc
 
 
 RED_AGENTS: dict[str, Type[BaseAgent]] = {

@@ -15,6 +15,8 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
+from live_demo import LiveRun
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
@@ -748,9 +750,12 @@ with st.sidebar:
         </div>""",
         unsafe_allow_html=True,
     )
+    if "pending_nav_choice" in st.session_state:
+        st.session_state["nav_choice"] = st.session_state.pop("pending_nav_choice")
     nav_choice = st.radio(
         "Module Selection",
         [
+            "🟢 Live Demo",
             "🛡️ Episode Replay",
             "⚖️ Compare Replays",
             "📈 Training Evidence",
@@ -758,6 +763,7 @@ with st.sidebar:
             "📐 Architecture",
         ],
         index=0,
+        key="nav_choice",
         label_visibility="collapsed",
     )
 
@@ -808,9 +814,200 @@ st.markdown(
 )
 
 # ═══════════════════════════════════════════════════════════════════════════
-# VIEW 1: EPISODE REPLAY (Smooth Play/Pause & Filter by MAPPO/IPPO/Sleep)
+# VIEW 1: LIVE DEMO (In-process CC4 execution)
 # ═══════════════════════════════════════════════════════════════════════════
-if "Episode Replay" in nav_choice:
+if "Live Demo" in nav_choice:
+   st.markdown("#### Live CC4 Demonstration")
+   st.info(
+       "Controlled simulated attack — the selected CC4 Red strategy runs in-process. "
+       "LLM output is advisory-only and does not intervene in Blue actions."
+   )
+
+   with st.expander("Live scenario controls", expanded=True):
+       c_seed, c_red, c_policy, c_steps, c_speed = st.columns([1, 1.3, 1.1, 1, 1])
+       with c_seed:
+           live_seed = st.number_input("Scenario seed", min_value=0, value=42, step=1)
+       with c_red:
+           live_red = st.selectbox(
+               "Red strategy",
+               ["FiniteStateRedAgent"],
+               help="Only verified native CC4 Red strategies are offered here.",
+           )
+       with c_policy:
+           live_policy = st.selectbox("Blue policy", ["Sleep", "IPPO", "MAPPO"])
+       with c_steps:
+           live_steps = st.number_input("Episode length", min_value=1, value=30, step=1)
+       with c_speed:
+           live_speed = st.selectbox("Playback speed", ["0.5x", "1x", "2x", "4x"], index=1)
+
+       if live_policy == "Sleep":
+           live_checkpoint = None
+       else:
+           checkpoint_suffix = "zip" if live_policy == "IPPO" else "pt"
+           checkpoint_options = sorted(
+               RESULTS.joinpath("checkpoints").glob(
+                   f"{live_policy.lower()}_seed*.{checkpoint_suffix}"
+               )
+           )
+           if checkpoint_options:
+               checkpoint_labels = [str(path.relative_to(ROOT)) for path in checkpoint_options]
+               selected_checkpoint_label = st.selectbox(
+                   "Trained policy checkpoint",
+                   checkpoint_labels,
+                   help=(
+                       "This selects policy weights only. The CC4 environment is "
+                       "created fresh using the Scenario seed above; it is not a replay."
+                   ),
+               )
+               live_checkpoint = str(ROOT / selected_checkpoint_label)
+           else:
+               live_checkpoint = None
+               st.error(
+                   f"No {live_policy} checkpoints found under "
+                   f"`{RESULTS / 'checkpoints'}`. Train or add a checkpoint before "
+                   "running this trained policy."
+               )
+
+       c_start, c_step, c_pause, c_resume, c_stop, c_restart = st.columns(6)
+       start_requested = c_start.button("Start", use_container_width=True)
+       step_requested = c_step.button("Step forward", use_container_width=True)
+       pause_requested = c_pause.button("Pause", use_container_width=True)
+       resume_requested = c_resume.button("Resume", use_container_width=True)
+       stop_requested = c_stop.button("Stop", use_container_width=True)
+       restart_requested = c_restart.button("Restart", use_container_width=True)
+   live_run = st.session_state.get("live_run")
+   requested_config = (
+       int(live_seed),
+       int(live_steps),
+       live_red,
+       live_policy,
+       live_checkpoint or "",
+   )
+   current_config = (
+       (
+           live_run.seed,
+           live_run.steps,
+           live_run.red_strategy,
+           live_run.blue_policy,
+           live_run.checkpoint or "",
+       )
+       if live_run is not None
+       else None
+   )
+
+   if start_requested or restart_requested or (
+       live_run is not None and current_config != requested_config
+   ):
+       try:
+           live_run = LiveRun.create(
+               seed=int(live_seed),
+               steps=int(live_steps),
+               red_strategy=live_red,
+               blue_policy=live_policy,
+               checkpoint=live_checkpoint or None,
+           )
+           st.session_state["live_run"] = live_run
+           st.session_state["live_running"] = bool(start_requested)
+           st.session_state["live_error"] = None
+       except Exception as exc:
+           st.session_state["live_run"] = None
+           st.session_state["live_running"] = False
+           st.session_state["live_error"] = str(exc)
+           live_run = None
+
+   if pause_requested:
+       st.session_state["live_running"] = False
+   if resume_requested and live_run is not None and not live_run.episode_done:
+       st.session_state["live_running"] = True
+   if stop_requested:
+       st.session_state["live_running"] = False
+       if live_run is not None:
+           live_run.error_state = "Stopped by presenter"
+   if step_requested and live_run is not None:
+       try:
+           live_run.step_once()
+           st.session_state["live_running"] = False
+           st.session_state["live_error"] = None
+       except Exception as exc:
+           live_run.error_state = str(exc)
+           st.session_state["live_running"] = False
+
+   live_error = st.session_state.get("live_error")
+   if live_error:
+       st.error(f"Live execution unavailable: {live_error}")
+       if st.button("Switch to saved replay", use_container_width=False):
+           st.session_state["pending_nav_choice"] = "🛡️ Episode Replay"
+           st.rerun()
+
+   live_run = st.session_state.get("live_run")
+   if live_run is None:
+       st.caption(
+           "Press Start to create a fresh seeded CC4 environment. "
+           "Saved replay remains available as an explicit fallback."
+       )
+   else:
+       if live_run.error_state:
+           st.warning(live_run.error_state)
+       frame = live_run.frames[-1] if live_run.frames else live_run.frame()
+       provenance = frame["provenance"]
+       st.caption(
+           f"Mode: `LIVE` | Policy: `{provenance['agent']}` | Seed: `{provenance['seed']}` | "
+           f"Red: `{provenance['red']}` | Step: `{frame['step']}`"
+       )
+
+       metrics = st.columns(5)
+       metrics[0].metric("Current Step", f"T-{max(frame['step'], 0):02d}")
+       metrics[1].metric("Step Reward", f"{frame['reward']:+.1f}")
+       metrics[2].metric("Cumulative Return", f"{frame['cumulative_reward']:+.1f}")
+       metrics[3].metric(
+           "Red Sessions",
+           sum(state == "red_session" for state in frame["host_state"].values()),
+       )
+       metrics[4].metric("Mission Phase", frame["mission_phase"])
+
+       col_graph, col_actions = st.columns([1.35, 1])
+       with col_graph:
+           st.plotly_chart(
+               build_zone_graph(frame["host_state"]),
+               use_container_width=True,
+           )
+           render_zone_detail(frame["host_state"], "live_zone")
+       with col_actions:
+           render_step_status(frame)
+
+       if frame["episode_done"]:
+           st.success("Live episode complete. This run is demonstration evidence only.")
+       elif st.session_state.get("live_running"):
+           st.caption("Use Step forward for deterministic single-transition playback.")
+
+       with st.expander("Current live frame payload"):
+           st.json(frame)
+       if live_run.frames:
+           if st.button("Save live run artifact", use_container_width=False):
+               output = EPISODES / (
+                   f"live_demo_{live_run.blue_policy}_{live_run.red_strategy}_"
+                   f"seed{live_run.seed}.json"
+               )
+               try:
+                   saved = live_run.save(output)
+                   st.success(f"Saved live-demo artifact: `{saved.name}`")
+               except Exception as exc:
+                   st.error(f"Could not save live-demo artifact: {exc}")
+
+       if st.session_state.get("live_running") and not live_run.episode_done:
+           delay_map = {"0.5x": 0.8, "1x": 0.35, "2x": 0.18, "4x": 0.08}
+           time.sleep(delay_map[live_speed])
+           try:
+               live_run.step_once()
+               st.rerun()
+           except Exception as exc:
+               live_run.error_state = str(exc)
+               st.session_state["live_running"] = False
+
+# ═══════════════════════════════════════════════════════════════════════════
+# VIEW 2: EPISODE REPLAY (Smooth Play/Pause & Filter by MAPPO/IPPO/Sleep)
+# ═══════════════════════════════════════════════════════════════════════════
+elif "Episode Replay" in nav_choice:
     st.markdown("#### Saved CC4 Episode Replay")
 
     selected_meta, episode = replay_selector(catalog, "replay_episode")
